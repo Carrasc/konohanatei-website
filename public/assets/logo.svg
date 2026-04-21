@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" role="img" aria-label="Konohanatei — Café &amp; Restaurante Japonés">
+  <defs>
+    
+  </defs>
+  
+  <text class="kh-jp" x="200" y="48" font-size="38" text-anchor="middle" letter-spacing="6">此の花亭</text>
+  
+  <text class="kh-word" x="200" y="92" font-size="32" text-anchor="middle" letter-spacing="2">Konohanatei</text>
+  
+  <line x1="70" y1="108" x2="330" y2="108" stroke="#6B3A1E" stroke-width="0.75"></line>
+  
+  <text class="kh-sub" x="200" y="128" font-size="14" text-anchor="middle" letter-spacing="1">Café &amp; Restaurante Japonés</text>
+  
+  <g transform="translate(338, 56)">
+    <rect x="0" y="0" width="28" height="28" rx="2" fill="#B8372A"></rect>
+    <text x="14" y="21" font-family="&#39;Shippori Mincho&#39;, &#39;Noto Serif JP&#39;, serif" font-weight="700" font-size="16" fill="#F4EADB" text-anchor="middle">花</text>
+  </g>
+</svg>

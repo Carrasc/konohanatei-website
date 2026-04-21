@@ -1,0 +1,13 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 40" width="80" height="40">
+  <defs>
+    <pattern id="sg" x="0" y="0" width="40" height="20" patternUnits="userSpaceOnUse">
+      <path d="M0 20 A20 20 0 0 1 40 20" fill="none" stroke="#1F3A5F" stroke-width="1"></path>
+      <path d="M-20 20 A20 20 0 0 1 20 20" fill="none" stroke="#1F3A5F" stroke-width="1"></path>
+      <path d="M20 20 A20 20 0 0 1 60 20" fill="none" stroke="#1F3A5F" stroke-width="1"></path>
+      <path d="M0 10 A10 10 0 0 1 20 10" fill="none" stroke="#1F3A5F" stroke-width="0.6" opacity="0.6"></path>
+      <path d="M20 10 A10 10 0 0 1 40 10" fill="none" stroke="#1F3A5F" stroke-width="0.6" opacity="0.6"></path>
+    </pattern>
+  </defs>
+  <rect width="80" height="40" fill="url(#sg)"></rect>
+</svg>
