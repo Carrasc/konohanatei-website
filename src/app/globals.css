@@ -363,6 +363,15 @@ body.kh-tone-warm        { background: #EADDC3; }
 /* =================================================================
    HEADER
    ================================================================= */
+/* Header height is measured downstream by the hero to fill the visible
+   viewport without overlapping the sticky bar. Adjust here if the
+   header padding/logo ever change. */
+:root {
+  --kh-header-height: 68px;
+}
+@media (max-width: 900px) { :root { --kh-header-height: 58px; } }
+@media (max-width: 560px) { :root { --kh-header-height: 54px; } }
+
 .kh-header {
   position: sticky; top: 0; z-index: 40;
   background: rgba(244, 234, 219, 0.88);
@@ -397,79 +406,151 @@ body.kh-tone-warm        { background: #EADDC3; }
 
 /* =================================================================
    HERO
+   -----------------------------------------------------------------
+   Fills the visible viewport below the sticky header. Content is
+   vertically centered; the marquee rail anchors the bottom. Typography
+   scales fluidly with clamp() so the hero composes well from ~360px
+   up to ultrawide without per-breakpoint restyling.
    ================================================================= */
 .kh-hero {
   position: relative;
-  padding: 28px 40px 40px;
-  max-width: 1400px; margin: 0 auto;
-  overflow: visible;
-}
-.kh-hero__eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  color: var(--kh-ink-mute);
-  margin-bottom: 16px;
-}
-.kh-hero__eyebrow .kh-rule-shoyu { width: 36px; }
-.kh-hero__grid {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 56px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  /* svh keeps the hero from growing past the visible viewport when
+     mobile browser chrome shrinks — avoids the "jump" on scroll. */
+  min-height: calc(100svh - var(--kh-header-height));
+  /* No max-width or horizontal padding here: the content area
+     constrains itself; the rail needs to span edge-to-edge. */
 }
 
-/* --- Hero Variant A (editorial) --- */
+.kh-hero__inner {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 56px) clamp(20px, 4vw, 56px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  min-height: 0; /* allows grid children with intrinsic size to shrink */
+}
+
+.kh-hero__content { min-width: 0; }
+
 .kh-hero__jp {
-  font-family: var(--kh-font-jp); font-weight: 500; font-size: 36px;
-  letter-spacing: 0.12em; margin: 0; color: var(--kh-fg);
+  font-family: var(--kh-font-jp);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+  letter-spacing: 0.12em;
+  color: var(--kh-fg);
+  margin: 0;
 }
 .kh-hero__latin {
-  font-family: var(--kh-font-display); font-weight: 500;
-  font-size: 62px; line-height: 1.05; letter-spacing: -0.022em;
-  color: var(--kh-fg); margin: 10px 0 20px;
+  font-family: var(--kh-font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 1.25rem + 4.2vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.022em;
+  color: var(--kh-fg);
+  margin: clamp(8px, 1vw, 14px) 0 clamp(14px, 1.5vw, 22px);
+  text-wrap: balance;
 }
 .kh-hero__latin em {
-  font-style: italic; color: var(--kh-shoyu); font-weight: 500;
+  font-style: italic; font-weight: 500;
   font-family: var(--kh-font-display);
+  color: var(--kh-shoyu);
 }
 .kh-hero__lead {
-  font-family: var(--kh-font-body); font-weight: 300; font-size: 17px;
-  line-height: 1.6; color: var(--kh-fg-muted);
-  max-width: 520px;
+  font-family: var(--kh-font-body);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.9rem + 0.35vw, 1.125rem);
+  line-height: 1.5;
+  letter-spacing: 0.002em;
+  color: var(--kh-fg-muted);
+  max-width: 52ch;
+  margin: 0;
+  text-wrap: pretty;
 }
-.kh-hero__lead em { font-style: italic; color: var(--kh-fg); font-weight: 400; }
-.kh-hero__meta {
-  margin: 20px 0 18px;
-  display: flex; gap: 24px; align-items: center;
-  font-size: 14px; color: var(--kh-fg-muted);
-  flex-wrap: wrap;
-}
-.kh-hero__meta-block { display: flex; flex-direction: column; gap: 2px; }
-.kh-hero__meta-block .k { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--kh-ink-mute); }
-.kh-hero__meta-block .v { font-family: var(--kh-font-display); font-weight: 600; font-size: 15px; color: var(--kh-fg); }
-.kh-hero__meta-block .v.jp { font-family: var(--kh-font-jp-body); font-weight: 500; }
-.kh-hero__cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+.kh-hero__lead em { font-style: italic; font-weight: 500; color: var(--kh-fg); }
 
-.kh-hero__right { position: relative; margin-top: -32px; }
+.kh-hero__meta {
+  margin: clamp(20px, 2.5vw, 32px) 0 clamp(18px, 2.5vw, 28px);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  color: var(--kh-fg-muted);
+}
+.kh-hero__meta-block { display: flex; flex-direction: column; gap: 2px; margin: 0; }
+.kh-hero__meta-block .k {
+  margin: 0;
+  font-family: var(--kh-font-body);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--kh-ink-mute);
+}
+.kh-hero__meta-block .v {
+  margin: 0;
+  font-family: var(--kh-font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--kh-fg);
+}
+.kh-hero__meta-block .v.jp { font-family: var(--kh-font-jp-body); font-weight: 500; }
+.kh-hero__meta-block .v a { color: inherit; }
+.kh-hero__meta-block .v a:hover { color: var(--kh-shoyu); }
+
+.kh-hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+
+/* ---- Photo / figure ---------------------------------------------- */
+.kh-hero__figure {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+}
 .kh-hero__photo {
-  position: relative; border-radius: 4px; overflow: hidden;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
   aspect-ratio: 1 / 1.15;
-  max-height: calc(100vh - 220px);
+  /* Cap photo height so the hero always fits within the visible
+     viewport, leaving room for the rail at the bottom. */
+  /* Constrained against the available hero height (viewport minus
+     header and rail) so the photo never forces the rail off-screen. */
+  max-height: min(58vh, 580px);
   box-shadow: 0 24px 48px rgba(30, 22, 12, 0.18);
+  margin-inline: auto;
 }
 .kh-hero__photo img { width: 100%; height: 100%; object-fit: cover; }
-.kh-hero__photo::after { content: ''; position: absolute; inset: 0; box-shadow: var(--kh-vignette); pointer-events: none; }
+.kh-hero__photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: var(--kh-vignette);
+  pointer-events: none;
+}
 
 .kh-hero__caption {
-  position: absolute; right: -20px; bottom: -28px;
-  background: var(--kh-washi); border: 1px solid var(--kh-line);
-  padding: 16px 20px 18px; border-radius: 4px;
+  position: absolute;
+  right: -20px;
+  bottom: -28px;
   max-width: 264px;
+  padding: 16px 20px 18px;
+  margin: 0;
+  background: var(--kh-washi);
+  border: 1px solid var(--kh-line);
+  border-radius: 4px;
   box-shadow: var(--kh-shadow-md);
   transform: rotate(1.2deg);
 }
 .kh-hero__caption::before {
-  content: ''; position: absolute; top: -14px; left: 22px;
-  width: 52px; height: 14px; background: var(--kh-paper-warm);
+  content: '';
+  position: absolute;
+  top: -14px; left: 22px;
+  width: 52px; height: 14px;
+  background: var(--kh-paper-warm);
   opacity: 0.7;
   border-left: 1px dashed rgba(0,0,0,0.08);
   border-right: 1px dashed rgba(0,0,0,0.08);
@@ -477,33 +558,36 @@ body.kh-tone-warm        { background: #EADDC3; }
 }
 .kh-hero__cap-jp { display: block; font-family: var(--kh-font-jp); font-size: 14px; color: var(--kh-fg-muted); letter-spacing: 0.08em; }
 .kh-hero__cap-latin { display: block; font-family: var(--kh-font-display); font-weight: 600; font-size: 20px; color: var(--kh-shoyu); margin-top: 2px; }
-.kh-hero__cap-desc { display: block; font-size: 12.5px; color: var(--kh-fg-muted); margin-top: 8px; font-style: italic; line-height: 1.5; }
+.kh-hero__cap-desc {
+  display: block;
+  font-family: var(--kh-font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.2;
+  color: var(--kh-fg-muted);
+  margin-top: 8px;
+  letter-spacing: 0.2px;
+}
 
 .kh-hero__seal {
-  position: absolute; left: -28px; top: 24px;
-  width: 72px; height: 72px;
+  position: absolute;
+  left: clamp(-28px, -1.5vw, -12px);
+  top: 24px;
+  width: clamp(52px, 5vw, 72px);
+  height: clamp(52px, 5vw, 72px);
   transform: rotate(-8deg);
-  filter: drop-shadow(0 2px 2px rgba(30,22,12,0.15));
+  filter: drop-shadow(0 2px 2px rgba(30, 22, 12, 0.15));
 }
 
-.kh-hero__ticket {
-  position: absolute; left: -44px; top: 48%;
-  transform: rotate(-4deg) translateY(-50%);
-  background: var(--kh-paper-warm);
-  border: 1px dashed var(--kh-shoyu-light);
-  padding: 10px 16px;
-  font-family: var(--kh-font-jp-body);
-  font-size: 12px;
-  color: var(--kh-sumi-soft);
-  letter-spacing: 0.1em;
-  writing-mode: vertical-rl;
-  line-height: 1.8;
-}
-
-/* Marquee band of photos below hero */
+/* ---- Marquee rail ------------------------------------------------
+   Lives inside .kh-hero as the last flex-column child, anchored to
+   the bottom edge of the viewport-height hero. Spans edge-to-edge
+   because .kh-hero itself has no max-width — only .kh-hero__inner
+   is constrained to 1400px. */
 .kh-hero__rail {
-  margin-top: 48px;
   position: relative;
+  flex: 0 0 auto;
   padding: 20px 0;
   border-top: 1px solid var(--kh-line-soft);
   border-bottom: 1px solid var(--kh-line-soft);
@@ -514,19 +598,23 @@ body.kh-tone-warm        { background: #EADDC3; }
       rgba(107, 58, 30, 0.06) 120px 121px
     );
   overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 .kh-hero__rail-track {
-  display: flex; gap: 28px; align-items: center;
-  animation: kh-rail 48s linear infinite;
+  display: flex;
+  align-items: center;
+  gap: 28px;
   width: max-content;
+  animation: kh-rail 48s linear infinite;
 }
-.kh-hero__rail-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 4px 0;
+@media (prefers-reduced-motion: reduce) {
+  .kh-hero__rail-track { animation: none; }
 }
+.kh-hero__rail-item { display: flex; align-items: center; gap: 14px; padding: 4px 0; }
 .kh-hero__rail-item img {
-  width: 64px; height: 64px; object-fit: cover; border-radius: 3px;
-  box-shadow: var(--kh-vignette), 0 2px 6px rgba(30,22,12,0.08);
+  width: 64px; height: 64px;
+  object-fit: cover; border-radius: 3px;
+  box-shadow: var(--kh-vignette), 0 2px 6px rgba(30, 22, 12, 0.08);
   flex-shrink: 0;
 }
 .kh-hero__rail-item .jp { font-family: var(--kh-font-jp); font-size: 14px; color: var(--kh-sumi); letter-spacing: 0.08em; white-space: nowrap; }
@@ -535,7 +623,7 @@ body.kh-tone-warm        { background: #EADDC3; }
 
 @keyframes kh-rail {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to   { transform: translateX(-50%); }
 }
 
 /* =================================================================
@@ -752,6 +840,10 @@ body.kh-tone-warm        { background: #EADDC3; }
   transition: border-color var(--kh-dur) var(--kh-ease), color var(--kh-dur) var(--kh-ease);
   color: var(--kh-ink-mute);
   min-width: 88px;
+  /* iOS: dispatch click immediately on tap instead of waiting to
+     disambiguate a pan gesture inside the horizontal scroll container. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .kh-menu__tab:hover { color: var(--kh-shoyu); }
 .kh-menu__tab--on { color: var(--kh-fg); border-color: var(--kh-shoyu); }
@@ -1243,21 +1335,21 @@ body.kh-tone-warm        { background: #EADDC3; }
    Hero layout variants
    ================================================================= */
 /* Variant B — centered stacked */
-body.kh-hero-centered .kh-hero__grid {
+body.kh-hero-centered .kh-hero__inner {
   grid-template-columns: 1fr;
   text-align: center;
   gap: 48px;
-  max-width: 900px; margin: 0 auto;
+  max-width: 900px;
+  margin: 0 auto;
 }
-body.kh-hero-centered .kh-hero__lead { margin: 0 auto; }
+body.kh-hero-centered .kh-hero__lead { margin-inline: auto; }
 body.kh-hero-centered .kh-hero__meta { justify-content: center; }
 body.kh-hero-centered .kh-hero__cta { justify-content: center; }
-body.kh-hero-centered .kh-hero__right { max-width: 460px; margin: 0 auto; }
-body.kh-hero-centered .kh-hero__eyebrow { justify-content: center; }
+body.kh-hero-centered .kh-hero__figure { max-width: 460px; margin-inline: auto; }
 
 /* Variant C — photo-left */
-body.kh-hero-photo-left .kh-hero__grid { direction: rtl; }
-body.kh-hero-photo-left .kh-hero__grid > * { direction: ltr; }
+body.kh-hero-photo-left .kh-hero__inner { direction: rtl; }
+body.kh-hero-photo-left .kh-hero__inner > * { direction: ltr; }
 body.kh-hero-photo-left .kh-hero__caption { right: auto; left: -20px; transform: rotate(-1.2deg); }
 body.kh-hero-photo-left .kh-hero__seal { left: auto; right: -28px; }
 
@@ -1276,22 +1368,28 @@ body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep);
 
 /* =================================================================
    Responsive hero tweaks
+   -----------------------------------------------------------------
+   Typography already scales with clamp(); these rules handle layout
+   shifts that can't be expressed in one line (stacking, photo aspect,
+   caption positioning).
    ================================================================= */
 @media (max-width: 1000px) {
-  .kh-hero { padding: 24px 24px 36px; }
-  .kh-hero__grid { grid-template-columns: 1fr; gap: 32px; }
-  .kh-hero__right { margin-top: 0; }
-  .kh-hero__latin { font-size: 48px; margin: 8px 0 16px; }
-  .kh-hero__jp { font-size: 30px; }
-  .kh-hero__lead { font-size: 16px; }
-  .kh-hero__seal { width: 56px; height: 56px; left: -12px; top: 12px; }
-  .kh-hero__ticket { display: none; }
-  .kh-hero__caption { right: -8px; bottom: -20px; max-width: 220px; }
+  .kh-hero {
+    /* Hero no longer insists on 100svh once stacked — content grows
+       taller than the viewport and forcing a min-height just creates
+       empty space above the rail. */
+    min-height: 0;
+  }
+  .kh-hero__inner {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
   .kh-hero__photo {
     aspect-ratio: 4 / 3;
     max-height: none;
+    max-width: 560px;
   }
-  .kh-hero__rail { margin-top: 32px; }
+  .kh-hero__caption { right: -8px; bottom: -20px; max-width: 220px; }
 }
 
 /* =================================================================
@@ -1322,7 +1420,9 @@ body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep);
     overflow-x: auto;
     flex-wrap: nowrap;
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    /* Lock scroll axis so vertical taps aren't hijacked as horizontal
+       pans — essential for tap reliability on iOS. */
+    touch-action: pan-x;
   }
   .kh-menu__tabs::-webkit-scrollbar { display: none; }
   .kh-menu__tab {
@@ -1361,27 +1461,21 @@ body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep);
 }
 
 @media (max-width: 640px) {
-  .kh-hero { padding: 20px 18px 28px; }
-  .kh-hero__eyebrow { margin-bottom: 10px; }
-  .kh-hero__eyebrow .kh-eyebrow { font-size: 10.5px; letter-spacing: 0.18em; }
-  .kh-hero__grid { gap: 24px; }
-  .kh-hero__jp { font-size: 24px; letter-spacing: 0.1em; }
-  .kh-hero__latin { font-size: 36px; line-height: 1.1; margin: 6px 0 14px; }
-  .kh-hero__lead { font-size: 15.5px; line-height: 1.55; }
-  .kh-hero__meta { gap: 14px 20px; margin: 14px 0 12px; font-size: 13px; }
+  .kh-hero__meta { gap: 12px 20px; }
   .kh-hero__meta-block .v { font-size: 14px; }
   .kh-hero__cta { gap: 8px; }
   .kh-hero__cta .kh-btn { flex: 1; justify-content: center; }
   .kh-hero__photo { aspect-ratio: 4 / 3; max-height: 60vh; }
   .kh-hero__caption {
-    position: static; transform: none;
-    margin-top: 16px; max-width: none;
+    position: static;
+    transform: none;
+    margin-top: 16px;
+    max-width: none;
   }
   .kh-hero__caption::before { display: none; }
-  .kh-hero__seal { width: 44px; height: 44px; left: -6px; top: 6px; }
-  .kh-hero__rail { margin-top: 24px; padding: 14px 0; }
+  .kh-hero__rail { padding: 14px 0; }
+  .kh-hero__rail-track { gap: 20px; }
   .kh-hero__rail-item img { width: 52px; height: 52px; }
   .kh-hero__rail-item .jp { font-size: 12.5px; }
   .kh-hero__rail-item .lt { font-size: 11.5px; }
-  .kh-hero__rail-track { gap: 20px; }
 }

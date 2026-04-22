@@ -72,6 +72,7 @@ export function MenuBrowser() {
         {MENU_TABS.map(([id, jp, latin]) => (
           <button
             key={id}
+            type="button"
             role="tab"
             aria-selected={tab === id}
             className={`kh-menu__tab${tab === id ? " kh-menu__tab--on" : ""}`}

@@ -3,68 +3,46 @@ import { Button } from "./Primitives";
 
 type RailItem = { img: string; jp: string; lt: string };
 
-const RAIL_ITEMS: RailItem[] = [
+const RAIL_ITEMS: readonly RailItem[] = [
   { img: "/assets/food/tonkatsu.png", jp: "トンカツ", lt: "Tonkatsu" },
   { img: "/assets/food/katsu-curry.png", jp: "カツカレー", lt: "Katsu curry" },
-  {
-    img: "/assets/food/konohana-roll.png",
-    jp: "此の花巻き",
-    lt: "Konohana roll",
-  },
+  { img: "/assets/food/konohana-roll.png", jp: "此の花巻き", lt: "Konohana roll" },
   { img: "/assets/food/niku-udon.png", jp: "肉うどん", lt: "Niku udon" },
   { img: "/assets/food/karaage.png", jp: "鶏のからあげ", lt: "Karaage" },
-  {
-    img: "/assets/food/agedashi-tofu.png",
-    jp: "揚げ出し豆腐",
-    lt: "Agedashi tofu",
-  },
+  { img: "/assets/food/agedashi-tofu.png", jp: "揚げ出し豆腐", lt: "Agedashi tofu" },
   { img: "/assets/food/chawan-mushi.png", jp: "茶碗蒸し", lt: "Chawan mushi" },
   { img: "/assets/food/yakisakana.png", jp: "鮭の塩焼き", lt: "Yakisakana" },
-];
+] as const;
 
-export function Hero({
-  onReserve,
-  onViewMenu,
-}: {
+type HeroProps = {
   onReserve: () => void;
   onViewMenu: () => void;
-}) {
-  const railLoop = [...RAIL_ITEMS, ...RAIL_ITEMS];
+};
+
+export function Hero({ onReserve, onViewMenu }: HeroProps) {
   return (
     <section className="kh-hero" id="top">
-      <div className="kh-hero__eyebrow">
-        <span className="kh-rule-shoyu" />
-        <span className="kh-eyebrow">
-          Plaza Pedregal · Jardines del Pedregal · CDMX
-        </span>
-      </div>
-      <div className="kh-hero__grid">
-        <div className="kh-hero__left">
+      <div className="kh-hero__inner">
+        <div className="kh-hero__content">
           <h1 className="kh-hero__jp">此の花亭</h1>
-          <h2 className="kh-hero__latin">
+          <p className="kh-hero__latin">
             <em>Comida japonesa,</em>
             <br />
             hecha en casa.
-          </h2>
+          </p>
           <p className="kh-hero__lead">
             Un pequeño café-restaurante familiar que sirve <em>donburi</em>,{" "}
-            <em>udon</em>,<em> curry</em>, tonkatsu, sushi y teishoku caseros —
+            <em>udon</em>, <em>curry</em>, tonkatsu, sushi y teishoku caseros —
             como los haría una madre en Tokio, a precios de todos los días.
           </p>
-          <div className="kh-hero__meta">
+
+          <dl className="kh-hero__meta">
             <div className="kh-hero__meta-block">
-              <span className="k">Horario</span>
-              <span className="v">Mar–Dom · 1 – 9 p.m.</span>
+              <dt className="k">Horario</dt>
+              <dd className="v">Mar–Dom · 1 – 9 p.m.</dd>
             </div>
-            <div className="kh-hero__meta-block">
-              <span className="k">月曜</span>
-              <span className="v jp">定休 · Cerrado lunes</span>
-            </div>
-            <div className="kh-hero__meta-block">
-              <span className="k">Reservas</span>
-              <span className="v">Tel. 5603 5404</span>
-            </div>
-          </div>
+          </dl>
+
           <div className="kh-hero__cta">
             <Button variant="primary" size="lg" onClick={onReserve}>
               Reservar una mesa
@@ -75,46 +53,54 @@ export function Hero({
           </div>
         </div>
 
-        <div className="kh-hero__right">
+        <figure className="kh-hero__figure">
           <img
             src="/assets/hanko.svg"
             alt=""
             className="kh-hero__seal"
+            aria-hidden="true"
           />
-          <div className="kh-hero__ticket">定食 · teishoku</div>
           <div className="kh-hero__photo">
             <img
               src="/assets/food/unadon.png"
               alt="Unadon — anguila sobre arroz al vapor"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
-          <div className="kh-hero__caption">
+          <figcaption className="kh-hero__caption">
             <span className="kh-hero__cap-jp">うな丼</span>
             <span className="kh-hero__cap-latin">Unadon</span>
             <span className="kh-hero__cap-desc">
               Anguila en salsa suavemente dulce de soya sobre arroz blanco al
               vapor.
             </span>
-          </div>
-        </div>
+          </figcaption>
+        </figure>
       </div>
-
-      <div className="kh-hero__rail" aria-hidden="true">
-        <div className="kh-hero__rail-track">
-          {railLoop.map((it, i) => (
-            <Fragment key={i}>
-              <div className="kh-hero__rail-item">
-                <img src={it.img} alt="" />
-                <div>
-                  <div className="jp">{it.jp}</div>
-                  <div className="lt">{it.lt}</div>
-                </div>
-              </div>
-              <span className="kh-hero__rail-sep" />
-            </Fragment>
-          ))}
-        </div>
-      </div>
+      <HeroRail />
     </section>
+  );
+}
+
+function HeroRail() {
+  return (
+    <div className="kh-hero__rail" aria-hidden="true">
+      <div className="kh-hero__rail-track">
+        {[...RAIL_ITEMS, ...RAIL_ITEMS].map((item, i) => (
+          <Fragment key={`${item.jp}-${i}`}>
+            <div className="kh-hero__rail-item">
+              <img src={item.img} alt="" loading="lazy" decoding="async" />
+              <div>
+                <div className="jp">{item.jp}</div>
+                <div className="lt">{item.lt}</div>
+              </div>
+            </div>
+            <span className="kh-hero__rail-sep" />
+          </Fragment>
+        ))}
+      </div>
+    </div>
   );
 }
