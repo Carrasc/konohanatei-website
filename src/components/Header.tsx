@@ -13,10 +13,8 @@ export function Header({ onReserve }: { onReserve: () => void }) {
         </a>
         <nav className="kh-header__nav">
           <a href="#about">Nosotros</a>
-          <a href="#menu" className="is-active">
-            Menú
-          </a>
-          <a href="#teishoku">Teishoku</a>
+          <a href="#menu">Menú</a>
+          <a href="#desayunos">Desayunos</a>
           <a href="#visit">Visitar</a>
         </nav>
         <div className="kh-header__cta">

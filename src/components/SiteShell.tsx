@@ -3,10 +3,10 @@
 import { useCallback, useState } from "react";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
-import { Signature } from "./Signature";
 import { About } from "./About";
 import { DelDia } from "./DelDia";
 import { MenuBrowser } from "./MenuBrowser";
+import { Breakfast } from "./Breakfast";
 import { Visit } from "./Visit";
 import { CtaBand } from "./CtaBand";
 import { Footer } from "./Footer";
@@ -27,10 +27,10 @@ export function SiteShell() {
     <>
       <Header onReserve={openModal} />
       <Hero onReserve={openModal} onViewMenu={scrollToMenu} />
-      <Signature />
       <About />
       <DelDia />
       <MenuBrowser />
+      <Breakfast />
       <Visit />
       <CtaBand onReserve={openModal} />
       <Footer />

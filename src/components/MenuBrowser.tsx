@@ -51,7 +51,7 @@ function MenuRow({ jp, name, desc, price, qty, note }: MenuItem) {
 }
 
 export function MenuBrowser() {
-  const [tab, setTab] = useState<string>("teishoku");
+  const [tab, setTab] = useState<string>(MENU_TABS[0][0]);
   const data = MENU_DATA[tab];
   return (
     <section className="kh-menu" id="menu">
@@ -61,12 +61,6 @@ export function MenuBrowser() {
           jp="メニュー"
           latin="Menú"
         />
-        <div className="kh-menu__head-right">
-          <p>
-            El menú se presenta en tres idiomas — japonés, español e inglés —
-            como lo hace el menú impreso desde 2004.
-          </p>
-        </div>
       </div>
       <div className="kh-menu__tabs" role="tablist">
         {MENU_TABS.map(([id, jp, latin]) => (

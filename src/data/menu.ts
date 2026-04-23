@@ -335,14 +335,63 @@ export const MENU_DATA: Record<string, MenuSection> = {
       { jp: "抹茶ロールケーキ", name: "Rollo de matcha con crema", price: 55 },
     ],
   },
+  bebidas: {
+    jp: "お飲物",
+    latin: "Bebidas",
+    intro: "Para acompañar: bebidas frías, tés calientes y cervezas japonesas.",
+    format: "rows",
+    items: [
+      { jp: "お水", name: "Agua natural o mineral", price: 30 },
+      { jp: "生ジュース", name: "Jugo natural", price: 55 },
+      {
+        jp: "生オレンジジュース／レモネード",
+        name: "Naranjada o limonada natural",
+        price: 45,
+      },
+      {
+        jp: "カルピス",
+        name: "Calpis",
+        desc: "Bebida láctea japonesa, ligeramente dulce y ácida.",
+        price: 45,
+      },
+      { jp: "ソフトドリンク", name: "Refresco", price: 35 },
+      { jp: "コーヒー", name: "Café", price: 35 },
+      { jp: "冷緑茶", name: "Té verde frío", price: 40 },
+      {
+        jp: "温緑茶",
+        name: "Té verde caliente",
+        qty: "tetera chica",
+        price: 40,
+      },
+      {
+        jp: "温緑茶",
+        name: "Té verde caliente",
+        qty: "tetera grande",
+        price: 75,
+      },
+      {
+        jp: "コロナビール",
+        name: "Cerveza Corona",
+        qty: "lata",
+        price: 50,
+      },
+      {
+        jp: "サッポロビール",
+        name: "Cerveza Sapporo",
+        qty: "botella",
+        price: 90,
+      },
+    ],
+  },
 };
 
 export const MENU_TABS: [string, string, string][] = [
+  ["botanas", "箸休め", "Botanas"],
   ["teishoku", "定食", "Teishoku"],
   ["sushi", "すし", "Sushi"],
   ["curry", "カレー", "Curry"],
   ["udon", "うどん", "Udon"],
   ["arroz", "ご飯物", "Donburi"],
-  ["botanas", "箸休め", "Botanas"],
   ["postres", "デザート", "Postres"],
+  ["bebidas", "お飲物", "Bebidas"],
 ];

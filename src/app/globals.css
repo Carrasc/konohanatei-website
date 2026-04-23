@@ -605,6 +605,7 @@ body.kh-tone-warm        { background: #EADDC3; }
   align-items: center;
   gap: 28px;
   width: max-content;
+  will-change: transform;
   animation: kh-rail 48s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -627,68 +628,241 @@ body.kh-tone-warm        { background: #EADDC3; }
 }
 
 /* =================================================================
-   SIGNATURE STRIP — "hoy en el mostrador"
+   BREAKFAST — "también tenemos desayunos"
    ================================================================= */
-.kh-signature {
-  padding: 88px 40px 56px;
+.kh-breakfast {
+  padding: 120px 40px 120px;
   max-width: 1240px; margin: 0 auto;
+  border-top: 1px solid var(--kh-line);
 }
-.kh-signature__grid {
-  display: grid; grid-template-columns: 320px 1fr; gap: 64px;
-  align-items: start;
+
+/* Head ---------------------------------------------------------- */
+.kh-breakfast__head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 72px;
 }
-.kh-signature__intro h3 {
+.kh-breakfast__eyebrow {
+  font-family: var(--kh-font-jp); font-size: 12px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--kh-ink-mute);
+  margin-bottom: 18px;
+}
+.kh-breakfast__title {
+  font-family: var(--kh-font-display); font-weight: 500;
+  font-size: 44px; line-height: 1.1; letter-spacing: -0.01em;
+  color: var(--kh-fg); margin: 0;
+}
+.kh-breakfast__title em {
+  font-style: italic; color: var(--kh-shoyu);
+}
+.kh-breakfast__jp {
   font-family: var(--kh-font-jp); font-weight: 500;
-  font-size: 34px; letter-spacing: 0.08em; margin: 0;
+  font-size: 28px; letter-spacing: 0.1em;
+  color: var(--kh-yuzu);
+  margin-top: 12px;
+}
+.kh-breakfast__hours {
+  display: inline-flex; align-items: baseline; gap: 12px;
+  margin-top: 24px;
+  padding: 10px 20px;
+  background: var(--kh-yuzu);
+  color: var(--kh-sumi);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(30, 22, 12, 0.10);
+}
+.kh-breakfast__hours-kanji {
+  font-family: var(--kh-font-jp); font-size: 11px; letter-spacing: 0.2em;
+  opacity: 0.7;
+}
+.kh-breakfast__hours-time {
+  font-family: var(--kh-font-display); font-weight: 600;
+  font-variant-numeric: tabular-nums; font-size: 15px;
+  letter-spacing: 0.04em;
+}
+.kh-breakfast__lead {
+  font-family: var(--kh-font-body); font-weight: 300;
+  font-size: 16px; line-height: 1.72;
+  color: var(--kh-fg-muted); margin: 28px auto 0;
+  max-width: 52ch; text-wrap: pretty;
+}
+
+/* Section header ------------------------------------------------ */
+.kh-breakfast__section { margin-bottom: 72px; }
+.kh-breakfast__sub {
+  display: flex; align-items: baseline; gap: 14px;
+  margin: 0 0 28px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted var(--kh-line);
+}
+.kh-breakfast__sub .jp {
+  font-family: var(--kh-font-jp); font-weight: 500;
+  font-size: 22px; letter-spacing: 0.1em; color: var(--kh-fg);
+}
+.kh-breakfast__sub .latin {
+  font-family: var(--kh-font-display); font-style: italic; font-weight: 500;
+  font-size: 18px; color: var(--kh-shoyu);
+}
+
+/* Meal cards — shared for sándwiches + teishoku ---------------- */
+.kh-breakfast__grid {
+  display: grid; gap: 20px;
+}
+.kh-breakfast__grid--4 { grid-template-columns: repeat(4, 1fr); }
+.kh-breakfast__grid--3 { grid-template-columns: repeat(3, 1fr); }
+
+.kh-meal {
+  position: relative;
+  display: flex; flex-direction: column;
+  background: var(--kh-paper-cool);
+  border: 1px solid var(--kh-line-soft);
+  border-radius: 3px; overflow: hidden;
+  transition: transform var(--kh-dur-med) var(--kh-ease-out),
+              border-color var(--kh-dur-med) var(--kh-ease-out);
+}
+.kh-meal:hover {
+  transform: translateY(-2px);
+  border-color: var(--kh-line);
+}
+.kh-meal--featured {
+  background: var(--kh-yuzu);
+  border-color: transparent;
+}
+.kh-meal__photo {
+  aspect-ratio: 4/3; overflow: hidden;
+  border-bottom: 1px solid var(--kh-line-soft);
+}
+.kh-meal--featured .kh-meal__photo { border-bottom-color: rgba(30, 22, 12, 0.08); }
+.kh-meal__photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--kh-dur-slow) var(--kh-ease-out);
+}
+.kh-meal:hover .kh-meal__photo img { transform: scale(1.04); }
+.kh-meal__tag {
+  position: absolute; top: 12px; right: 12px;
+  font-family: var(--kh-font-jp); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.14em;
+  background: var(--kh-sumi); color: var(--kh-paper);
+  padding: 3px 8px; border-radius: 2px;
+  z-index: 1;
+}
+.kh-meal__body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+.kh-meal__jp {
+  font-family: var(--kh-font-jp); font-weight: 500;
+  font-size: 13px; letter-spacing: 0.08em;
+  color: var(--kh-fg-muted);
+}
+.kh-meal--featured .kh-meal__jp { color: var(--kh-sumi-soft); }
+.kh-meal__name {
+  font-family: var(--kh-font-display); font-weight: 600;
+  font-size: 18px; line-height: 1.2;
+  color: var(--kh-fg); margin: 4px 0 8px;
+}
+.kh-meal--featured .kh-meal__name { color: var(--kh-sumi); }
+.kh-meal__desc {
+  font-family: var(--kh-font-body); font-weight: 300;
+  font-size: 13.5px; line-height: 1.55;
+  color: var(--kh-fg-muted); margin: 0 0 14px;
+  flex: 1;
+}
+.kh-meal--featured .kh-meal__desc { color: var(--kh-sumi-soft); }
+.kh-meal__foot { display: flex; align-items: baseline; gap: 10px; }
+.kh-meal__price {
+  font-family: var(--kh-font-display); font-weight: 600;
+  font-size: 17px; font-variant-numeric: tabular-nums;
   color: var(--kh-fg);
 }
-.kh-signature__intro h3 + .latin {
-  font-family: var(--kh-font-display); font-weight: 500; font-style: italic;
-  font-size: 24px; color: var(--kh-shoyu); margin-top: 4px; display: block;
+.kh-meal--featured .kh-meal__price { color: var(--kh-sumi); }
+
+/* Onigiri callout --------------------------------------------- */
+.kh-onigiri {
+  display: grid; grid-template-columns: 240px 1fr; gap: 28px;
+  padding: 20px;
+  background: var(--kh-paper-cool);
+  border: 1px solid var(--kh-line-soft);
+  border-radius: 3px;
+  align-items: center;
 }
-.kh-signature__intro p {
+.kh-onigiri__photo {
+  aspect-ratio: 4/3; overflow: hidden; border-radius: 3px;
+}
+.kh-onigiri__photo img { width: 100%; height: 100%; object-fit: cover; }
+.kh-onigiri__body { padding: 4px 8px; }
+.kh-onigiri__title {
+  display: flex; align-items: baseline; gap: 14px;
+  margin-bottom: 10px;
+}
+.kh-onigiri__title .jp {
+  font-family: var(--kh-font-jp); font-weight: 500;
+  font-size: 18px; letter-spacing: 0.06em;
+  color: var(--kh-fg);
+}
+.kh-onigiri__price {
+  font-family: var(--kh-font-display); font-weight: 600;
+  font-size: 17px; color: var(--kh-fg); margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+.kh-onigiri__desc {
   font-family: var(--kh-font-body); font-weight: 300;
-  font-size: 16px; line-height: 1.65;
-  color: var(--kh-fg-muted); margin-top: 24px; max-width: 280px;
+  font-size: 14.5px; line-height: 1.6;
+  color: var(--kh-fg-muted); margin: 0 0 16px;
+  max-width: 56ch;
 }
-.kh-signature__intro .kh-date {
-  margin-top: 20px;
-  font-family: var(--kh-font-jp-body); font-size: 13px; letter-spacing: 0.08em;
-  color: var(--kh-sumi-soft);
-  padding-top: 16px; border-top: 1px dotted var(--kh-line);
+.kh-onigiri__fillings {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 14px 18px;
+}
+.kh-onigiri__label {
+  font-family: var(--kh-font-jp); font-size: 12px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--kh-ink-mute);
+  margin-right: 2px;
+}
+.kh-onigiri__filling {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--kh-font-display); font-weight: 500; font-style: italic;
+  font-size: 14px; color: var(--kh-sumi);
+}
+.kh-onigiri__filling img {
+  width: 40px; height: 40px; border-radius: 50%;
+  object-fit: cover; border: 1px solid var(--kh-line-soft);
+}
+@media (max-width: 720px) {
+  .kh-onigiri { grid-template-columns: 1fr; }
+  .kh-onigiri__photo { aspect-ratio: 16/9; }
 }
 
-.kh-signature__rail {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+/* Bebidas + Postres lists ------------------------------------- */
+.kh-breakfast__lists {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px;
 }
-.kh-sig-card {
+.kh-price-list {
+  list-style: none; padding: 0; margin: 0;
   display: flex; flex-direction: column; gap: 10px;
 }
-.kh-sig-card__photo {
-  position: relative; aspect-ratio: 1; border-radius: 3px; overflow: hidden;
-  border: 1px solid var(--kh-line);
+.kh-price-list__item {
+  display: flex; align-items: baseline; gap: 10px;
+  font-family: var(--kh-font-body); font-size: 15px;
+  color: var(--kh-fg);
 }
-.kh-sig-card__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--kh-dur-slow) var(--kh-ease-out); }
-.kh-sig-card:hover .kh-sig-card__photo img { transform: scale(1.04); }
-.kh-sig-card__photo::after { content: ''; position: absolute; inset: 0; box-shadow: var(--kh-vignette); pointer-events: none; }
-.kh-sig-card__num {
-  position: absolute; top: 8px; left: 8px;
-  background: var(--kh-sumi); color: var(--kh-paper);
-  font-family: var(--kh-font-display); font-weight: 600;
-  font-size: 11px; padding: 2px 7px; border-radius: 2px;
-  letter-spacing: 0.1em;
+.kh-price-list__name { font-weight: 400; }
+.kh-price-list__note {
+  font-family: var(--kh-font-display); font-style: italic;
+  font-weight: 400; font-size: 13px; color: var(--kh-fg-muted);
 }
-.kh-sig-card__jp { font-family: var(--kh-font-jp); font-weight: 500; font-size: 13.5px; color: var(--kh-fg-muted); letter-spacing: 0.06em; margin-top: 2px; }
-.kh-sig-card__name { font-family: var(--kh-font-display); font-weight: 600; font-size: 17px; color: var(--kh-sumi); line-height: 1.2; margin: 2px 0 4px; }
-.kh-sig-card__foot { display: flex; align-items: baseline; font-size: 13px; color: var(--kh-fg-muted); }
-.kh-sig-card__price { font-family: var(--kh-font-display); font-weight: 500; font-variant-numeric: tabular-nums; color: var(--kh-fg); font-size: 15px; }
+.kh-price-list__price {
+  font-family: var(--kh-font-display); font-weight: 500;
+  font-variant-numeric: tabular-nums; color: var(--kh-fg);
+  font-size: 15px;
+}
 
+/* Responsive --------------------------------------------------- */
 @media (max-width: 1100px) {
-  .kh-signature__grid { grid-template-columns: 1fr; gap: 32px; }
-  .kh-signature__rail { grid-template-columns: repeat(3, 1fr); }
+  .kh-breakfast__grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .kh-breakfast__grid--3 { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .kh-breakfast__lists { grid-template-columns: 1fr; gap: 48px; }
 }
-@media (max-width: 640px) {
-  .kh-signature__rail { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 720px) {
+  .kh-breakfast__grid--4,
+  .kh-breakfast__grid--3 { grid-template-columns: 1fr; }
 }
 
 /* =================================================================
@@ -823,8 +997,10 @@ body.kh-tone-warm        { background: #EADDC3; }
 .kh-menu {
   padding: 96px 40px 88px;
   max-width: 1240px; margin: 0 auto;
+  border-top: 1px solid var(--kh-line);
 }
 .kh-menu__head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; gap: 32px; }
+.kh-menu__head .kh-sec { margin-bottom: 0; }
 .kh-menu__head-right { max-width: 400px; text-align: right; }
 .kh-menu__head-right p { font-family: var(--kh-font-body); font-weight: 300; font-size: 14px; line-height: 1.65; color: var(--kh-fg-muted); font-style: italic; margin: 0; }
 
@@ -858,7 +1034,7 @@ body.kh-tone-warm        { background: #EADDC3; }
 .kh-menu__intro p { font-family: var(--kh-font-body); font-weight: 300; font-size: 17px; line-height: 1.65; color: var(--kh-fg-muted); margin: 0; }
 .kh-menu__intro em { font-style: italic; color: var(--kh-shoyu); font-weight: 400; }
 
-.kh-menu__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.kh-menu__cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .kh-menu__rows {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 0 56px;
@@ -943,6 +1119,7 @@ body.kh-tone-warm        { background: #EADDC3; }
 .kh-teishoku-note__body p { font-size: 13.5px; color: var(--kh-sumi-soft); margin: 0; line-height: 1.55; }
 .kh-teishoku-note__price { font-family: var(--kh-font-display); font-weight: 500; font-size: 17px; color: var(--kh-shoyu); white-space: nowrap; }
 .kh-teishoku-note__price small { display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--kh-ink-mute); font-family: var(--kh-font-body); font-weight: 600; margin-bottom: 2px; }
+.kh-teishoku-note--plain { grid-template-columns: auto 1fr; }
 
 @media (max-width: 900px) {
   .kh-menu__cards { grid-template-columns: 1fr 1fr; }
@@ -1396,11 +1573,14 @@ body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep);
    Mobile-wide section tightening (applies below tablet)
    ================================================================= */
 @media (max-width: 720px) {
-  .kh-signature { padding: 56px 20px 36px; }
-  .kh-signature__grid { gap: 24px; }
-  .kh-signature__intro h3 { font-size: 28px; }
-  .kh-signature__intro h3 + .latin { font-size: 20px; }
-  .kh-signature__intro p { font-size: 15px; }
+  .kh-breakfast { padding: 64px 20px 64px; }
+  .kh-breakfast__head { margin-bottom: 48px; }
+  .kh-breakfast__title { font-size: 32px; }
+  .kh-breakfast__jp { font-size: 22px; }
+  .kh-breakfast__lead { font-size: 15px; }
+  .kh-breakfast__section { margin-bottom: 48px; }
+  .kh-breakfast__sub .jp { font-size: 18px; }
+  .kh-breakfast__sub .latin { font-size: 16px; }
 
   .kh-about { padding: 56px 20px; }
   .kh-about__text h2 { font-size: 28px; }
