@@ -277,30 +277,17 @@ export const MENU_DATA: Record<string, MenuSection> = {
       },
       {
         jp: "ギョウザ",
-        name: "Gyoza (8 piezas)",
+        name: "Gyoza",
+        qty: "8 piezas",
         desc: "Empanaditas asadas muy suaves, rellenas de carne molida de res",
         price: 70,
       },
       {
         jp: "春巻き",
-        name: "Harumaki (3 piezas)",
+        name: "Harumaki",
         qty: "3 piezas",
         desc: "Rollo primavera con carne de puerco y verduras",
         price: 120,
-      },
-      {
-        jp: "餃子",
-        name: "Gyoza",
-        qty: "6 piezas",
-        desc: "Empanaditas de puerco y verduras, a la plancha y al vapor.",
-        price: 90,
-      },
-      {
-        jp: "春巻き",
-        name: "Harumaki",
-        qty: "4 piezas",
-        desc: "Rollo primavera con carne de puerco y verduras.",
-        price: 85,
       },
       {
         jp: "鶏ぎもの唐揚げ",
@@ -310,7 +297,8 @@ export const MENU_DATA: Record<string, MenuSection> = {
       },
       {
         jp: "コロッケ",
-        name: "Korokke (4 piezas)",
+        name: "Korokke",
+        qty: "4 piezas",
         desc: "Croquetas de papa con carne molida de res",
         price: 65,
       },
@@ -352,7 +340,8 @@ export const MENU_DATA: Record<string, MenuSection> = {
       },
       {
         jp: "チーズ串揚げ",
-        name: "Kushiague de queso (3 piezas)",
+        name: "Kushiague de queso",
+        qty: "3 piezas",
         desc: "Brocheta de queso empanizado",
         price: 130,
       },
