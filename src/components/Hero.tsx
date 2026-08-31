@@ -44,9 +44,6 @@ export function Hero({ onReserve, onViewMenu }: HeroProps) {
           </dl>
 
           <div className="kh-hero__cta">
-            <Button variant="primary" size="lg" onClick={onReserve}>
-              Reservar una mesa
-            </Button>
             <Button variant="ghost" size="lg" onClick={onViewMenu}>
               Ver el menú
             </Button>

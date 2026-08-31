@@ -151,15 +151,11 @@
   letter-spacing: var(--kh-tracking-tight);
   color: var(--kh-fg);
 }
-.kh-hero {
-  font-family: var(--kh-font-display);
-  font-weight: 500;
-  font-style: italic;
-  font-size: var(--kh-size-5xl);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--kh-fg);
-}
+/* No unused `.kh-hero` typography utility here — it shared a name with
+   the Hero section's own `.kh-hero` (below) and its `font-style: italic`
+   was silently inheriting into every hero child that didn't set its own
+   font-style (the schedule line, the lead paragraph), producing broken
+   synthesized bold-italic glyphs on fonts without that exact cut. */
 
 /* Japanese display — use for 漢字/かな headings */
 .kh-jp-display {
@@ -400,7 +396,9 @@ body.kh-tone-warm        { background: #EADDC3; }
 .kh-header__phone:hover { color: var(--kh-shoyu); }
 @media (max-width: 900px) {
   .kh-header__nav, .kh-header__phone { display: none; }
-  .kh-header__inner { padding: 10px 18px; gap: 12px; grid-template-columns: auto 1fr auto; }
+  /* Horizontal padding matches .kh-hero__inner's mobile floor so the
+     brand mark and the hero content below line up on the same edge. */
+  .kh-header__inner { padding: 10px 24px; gap: 12px; grid-template-columns: auto 1fr auto; }
 }
 @media (max-width: 560px) {
   .kh-header__mark { width: 34px; height: 34px; }
@@ -432,7 +430,7 @@ body.kh-tone-warm        { background: #EADDC3; }
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 56px) clamp(20px, 4vw, 56px);
+  padding: clamp(24px, 4vw, 56px) clamp(24px, 4vw, 56px);
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: clamp(32px, 5vw, 72px);
@@ -894,7 +892,10 @@ body.kh-tone-warm        { background: #EADDC3; }
 
 @media (max-width: 900px) {
   .kh-about__grid { grid-template-columns: 1fr; gap: 32px; }
-  .kh-about__photo--a, .kh-about__photo--b { transform: none; max-width: 360px; margin: 0 auto; }
+  /* Stacked layout only needs one photo — showing both (each full-width
+     at a tall 3/4 ratio) sandwiches the text between two heavy blocks. */
+  .kh-about__photo--a { display: none; }
+  .kh-about__photo--b { transform: none; max-width: 360px; margin: 0 auto; }
   .kh-about__text h2 { font-size: 34px; }
 }
 
