@@ -6,7 +6,6 @@ type Meal = {
   price: number;
   featured?: boolean;
 };
-type LineItem = { name: string; price: number; note?: string };
 type Filling = { name: string; img: string };
 
 const SANDOS: Meal[] = [
@@ -68,30 +67,6 @@ const ONIGIRI_FILLINGS: Filling[] = [
   { name: "Salmón", img: "/assets/food/breakfast/onigiri-salmon.jpg" },
   { name: "Umeboshi", img: "/assets/food/breakfast/onigiri-umeboshi.jpg" },
   { name: "Queso Filadelfia", img: "/assets/food/breakfast/onigiri-queso.jpg" },
-];
-
-const BEBIDAS: LineItem[] = [
-  { name: "Expresso", price: 50 },
-  { name: "Americano", price: 50 },
-  { name: "Latte", price: 60 },
-  { name: "Capuchino", price: 60 },
-  { name: "Té de bolsita", price: 50 },
-  { name: "Té verde en tetera chica", price: 60 },
-  { name: "Té verde frío", price: 50 },
-  { name: "Proteína Whey", price: 80, note: "Matcha +20" },
-  { name: "Jugo de naranja", price: 60 },
-  { name: "Jugo de toronja", price: 60 },
-  { name: "Jugo verde", price: 55 },
-  { name: "Calpis", price: 55 },
-  { name: "Refresco", price: 45 },
-  { name: "Agua natural o mineral", price: 40 },
-];
-
-const POSTRES: LineItem[] = [
-  { name: "Tarta de pera", price: 70 },
-  { name: "Gelatina de café con helado", price: 70 },
-  { name: "Pastel de queso", price: 70 },
-  { name: "Chiffon cake", price: 55 },
 ];
 
 function MealCard({ img, jp, name, desc, price, featured }: Meal) {
@@ -204,47 +179,6 @@ export function Breakfast() {
         </div>
       </div>
 
-      <div className="kh-breakfast__lists">
-        <div className="kh-breakfast__list">
-          <h3 className="kh-breakfast__sub">
-            <span className="jp">お飲み物</span>
-            <span className="latin">Bebidas</span>
-          </h3>
-          <ul className="kh-price-list">
-            {BEBIDAS.map((b) => (
-              <li key={b.name} className="kh-price-list__item">
-                <span className="kh-price-list__name">
-                  {b.name}
-                  {b.note && (
-                    <span className="kh-price-list__note"> · {b.note}</span>
-                  )}
-                </span>
-                <span className="kh-leader" />
-                <span className="kh-price-list__price">
-                  $ {b.price.toFixed(2)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="kh-breakfast__list">
-          <h3 className="kh-breakfast__sub">
-            <span className="jp">お菓子</span>
-            <span className="latin">Postres</span>
-          </h3>
-          <ul className="kh-price-list">
-            {POSTRES.map((p) => (
-              <li key={p.name} className="kh-price-list__item">
-                <span className="kh-price-list__name">{p.name}</span>
-                <span className="kh-leader" />
-                <span className="kh-price-list__price">
-                  $ {p.price.toFixed(2)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </section>
   );
 }

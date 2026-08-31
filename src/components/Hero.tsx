@@ -8,7 +8,7 @@ const RAIL_ITEMS: readonly RailItem[] = [
   { img: "/assets/food/katsu-curry.png", jp: "カツカレー", lt: "Katsu curry" },
   { img: "/assets/food/konohana-roll.png", jp: "此の花巻き", lt: "Konohana roll" },
   { img: "/assets/food/niku-udon.png", jp: "肉うどん", lt: "Niku udon" },
-  { img: "/assets/food/karaage.png", jp: "鶏のからあげ", lt: "Karaage" },
+  { img: "/assets/food/karaage.png", jp: "鶏のからあげ", lt: "Karaague" },
   { img: "/assets/food/agedashi-tofu.png", jp: "揚げ出し豆腐", lt: "Agedashi tofu" },
   { img: "/assets/food/chawan-mushi.png", jp: "茶碗蒸し", lt: "Chawan mushi" },
   { img: "/assets/food/yakisakana.png", jp: "鮭の塩焼き", lt: "Yakisakana" },

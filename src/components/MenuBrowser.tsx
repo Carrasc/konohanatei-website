@@ -4,11 +4,17 @@ import { useState } from "react";
 import { SectionHeader } from "./Primitives";
 import { MENU_DATA, MENU_TABS, type MenuItem } from "@/data/menu";
 
-function DishCard({ photo, jp, name, desc, price, qty, tag }: MenuItem) {
+function DishCard({ photo, jp, name, desc, price, alt, qty, note, tag }: MenuItem) {
   return (
     <article className="kh-dish">
       <div className="kh-dish__photo">
-        {photo && <img src={photo} alt="" />}
+        {photo ? (
+          <img src={photo} alt="" loading="lazy" />
+        ) : (
+          <div className="kh-dish__photo-empty" aria-hidden="true">
+            <span>{jp}</span>
+          </div>
+        )}
         {tag && (
           <span
             className={`kh-dish__tag${
@@ -26,26 +32,49 @@ function DishCard({ photo, jp, name, desc, price, qty, tag }: MenuItem) {
           {qty ? <span className="kh-dish__qty"> · {qty}</span> : null}
         </h3>
         {desc && <p className="kh-dish__desc">{desc}</p>}
+        {note && <p className="kh-dish__note">{note}</p>}
         <div className="kh-dish__foot">
           <span className="kh-leader" />
           <span className="kh-price">$ {price.toFixed(2)}</span>
         </div>
+        {alt && (
+          <div className="kh-dish__alt">
+            <span>{alt.label}</span>
+            <span className="kh-leader" />
+            <span>$ {alt.price.toFixed(2)}</span>
+          </div>
+        )}
       </div>
     </article>
   );
 }
 
-function MenuRow({ jp, name, desc, price, qty, note }: MenuItem) {
+function MenuRow({ photo, jp, name, desc, price, alt, qty, note }: MenuItem) {
   return (
     <div className="kh-row">
-      <div className="kh-row__jp">{jp}</div>
-      <h3 className="kh-row__name">
-        {name}
-        {qty ? <span className="kh-row__qty"> · {qty}</span> : null}
-      </h3>
-      {desc && <div className="kh-row__desc">{desc}</div>}
-      {note && <div className="kh-row__note">{note}</div>}
-      <div className="kh-row__price">$ {price.toFixed(2)}</div>
+      {photo && (
+        <div className="kh-row__thumb">
+          <img src={photo} alt="" loading="lazy" />
+        </div>
+      )}
+      <div className="kh-row__main">
+        <div className="kh-row__jp">{jp}</div>
+        <h3 className="kh-row__name">
+          {name}
+          {qty ? <span className="kh-row__qty"> · {qty}</span> : null}
+        </h3>
+        {desc && <div className="kh-row__desc">{desc}</div>}
+        {note && <div className="kh-row__note">{note}</div>}
+      </div>
+      <div className="kh-row__prices">
+        <div className="kh-row__price">$ {price.toFixed(2)}</div>
+        {alt && (
+          <div className="kh-row__price-alt">
+            <span>{alt.label}</span>
+            <span>$ {alt.price.toFixed(2)}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

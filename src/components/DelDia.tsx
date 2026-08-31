@@ -9,28 +9,28 @@ type DelDiaItem = {
 
 const ITEMS: DelDiaItem[] = [
   {
-    tag: "本日のランチ · Comida del día",
-    img: "/assets/food/shogayaki.png",
-    jp: "生姜焼き",
-    name: "Shogayaki",
-    desc: "Lomo de puerco en salsa de jengibre y soya, con arroz y miso.",
-    price: 165,
-  },
-  {
-    tag: "季節限定 · De temporada",
-    img: "/assets/food/sanma.png",
-    jp: "秋刀魚",
-    name: "Sanma asado",
-    desc: "Pescado de otoño a la parrilla con rábano rallado. Pregunte existencia.",
+    tag: "一番人気 · N.º 1",
+    img: "/assets/food/gyoza.png",
+    jp: "ギョウザ",
+    name: "Gyoza",
+    desc: "Ocho empanaditas asadas muy suaves, rellenas de carne molida de res.",
     price: 180,
   },
   {
-    tag: "家のおすすめ · De la casa",
-    img: "/assets/food/okonomiyaki.png",
-    jp: "お好み焼き",
-    name: "Okonomiyaki",
-    desc: "Tortita de col con carne de puerco, bonito y salsa okonomi.",
-    price: 145,
+    tag: "二番人気 · N.º 2",
+    img: "/assets/food/katsu-curry.png",
+    jp: "カツカレー",
+    name: "Curry con tonkatsu",
+    desc: "Curry de la casa con lomo de puerco empanizado.",
+    price: 300,
+  },
+  {
+    tag: "三番人気 · N.º 3",
+    img: "/assets/food/yakisakana.png",
+    jp: "鮭の塩焼き",
+    name: "Yakisakana",
+    desc: "Salmón asado con un toque de sal.",
+    price: 200,
   },
 ];
 
@@ -41,12 +41,12 @@ export function DelDia() {
       <div className="kh-deldia__inner">
         <div className="kh-deldia__head">
           <div className="kh-deldia__title">
-            <span className="jp">今日のお品書き</span>
-            <span className="lt">Hoy en la carta</span>
+            <span className="jp">人気のお品書き</span>
+            <span className="lt">Los más pedidos</span>
           </div>
           <p className="kh-deldia__note">
-            Los teishoku y postres del día cambian con la estación y la mano del
-            mercado — pregunte existencia al llegar.
+            Los platillos que más salen de la cocina — los favoritos de quienes
+            nos visitan, día tras día.
           </p>
         </div>
         <div className="kh-deldia__grid">
