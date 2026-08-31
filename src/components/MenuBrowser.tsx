@@ -49,12 +49,26 @@ function DishCard({ photo, jp, name, desc, price, alt, qty, note, tag }: MenuIte
   );
 }
 
-function MenuRow({ photo, jp, name, desc, price, alt, qty, note }: MenuItem) {
+function MenuRow({
+  photo,
+  jp,
+  name,
+  desc,
+  price,
+  alt,
+  qty,
+  note,
+  reserveThumb,
+}: MenuItem & { reserveThumb?: boolean }) {
   return (
     <div className="kh-row">
-      {photo && (
-        <div className="kh-row__thumb">
-          <img src={photo} alt="" loading="lazy" />
+      {(photo || reserveThumb) && (
+        <div className={`kh-row__thumb${photo ? "" : " kh-row__thumb--empty"}`}>
+          {photo ? (
+            <img src={photo} alt="" loading="lazy" />
+          ) : (
+            <img src="/assets/sakura.svg" alt="" aria-hidden="true" />
+          )}
         </div>
       )}
       <div className="kh-row__main">
@@ -82,6 +96,7 @@ function MenuRow({ photo, jp, name, desc, price, alt, qty, note }: MenuItem) {
 export function MenuBrowser() {
   const [tab, setTab] = useState<string>(MENU_TABS[0][0]);
   const data = MENU_DATA[tab];
+  const rowsHavePhotos = data.items.some((i) => i.photo);
   return (
     <section className="kh-menu" id="menu">
       <div className="kh-menu__head">
@@ -136,7 +151,7 @@ export function MenuBrowser() {
         ) : (
           <div className="kh-menu__rows">
             {data.items.map((r, i) => (
-              <MenuRow key={i} {...r} />
+              <MenuRow key={i} {...r} reserveThumb={rowsHavePhotos} />
             ))}
           </div>
         )}
