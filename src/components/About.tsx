@@ -3,7 +3,7 @@ export function About() {
     <section className="kh-about" id="about">
       <div className="kh-about__grid">
         <div className="kh-about__photo kh-about__photo--a">
-          <img src="/assets/food/chawan-mushi.png" alt="" />
+          <img src="/assets/food/mini-udon.webp" alt="" />
         </div>
         <div className="kh-about__text">
           <span className="kh-eyebrow">
@@ -37,7 +37,7 @@ export function About() {
           />
         </div>
         <div className="kh-about__photo kh-about__photo--b">
-          <img src="/assets/food/misoshiru.png" alt="" />
+          <img src="/assets/food/torikatsu.webp" alt="" />
         </div>
       </div>
     </section>

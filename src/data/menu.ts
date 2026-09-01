@@ -34,14 +34,14 @@ export const MENU_DATA: Record<string, MenuSection> = {
     format: "rows",
     items: [
       {
-        photo: "/assets/food/sunomono.png",
+        photo: "/assets/food/sunomono.webp",
         jp: "酢の物",
         name: "Sunomono",
         desc: "Ensalada de fideos transparentes de arroz con un toque de vinagre.",
         price: 60,
       },
       {
-        photo: "/assets/food/shiroae.png",
+        photo: "/assets/food/shiroae.webp",
         jp: "和え物",
         name: "Aemono",
         desc: "Ejotes con pasta hecha a base de tofu (queso de soya) y ajonjolí.",
@@ -54,7 +54,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 95,
       },
       {
-        photo: "/assets/food/gyoza.png",
+        photo: "/assets/food/gyoza.webp",
         jp: "ギョウザ",
         name: "Gyoza",
         qty: "8 piezas",
@@ -75,7 +75,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 160,
       },
       {
-        photo: "/assets/food/korokke.png",
+        photo: "/assets/food/korokke.webp",
         jp: "コロッケ",
         name: "Korokke",
         qty: "4 piezas",
@@ -88,14 +88,14 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 95,
       },
       {
-        photo: "/assets/food/ika-ring.png",
+        photo: "/assets/food/ika-ring.webp",
         jp: "イカリング",
         name: "Ika ring",
         desc: "Aros de calamar empanizados.",
         price: 160,
       },
       {
-        photo: "/assets/food/okonomiyaki.png",
+        photo: "/assets/food/okonomiyaki.webp",
         jp: "お好み焼き",
         name: "Okonomiyaki",
         desc: "Carne de puerco, camarón, calamar, col y verduras combinados en una tortilla de harina tipo hotcake.",
@@ -108,7 +108,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 320,
       },
       {
-        photo: "/assets/food/agedashi-tofu.png",
+        photo: "/assets/food/agedashi-tofu.webp",
         jp: "揚げ出し豆腐",
         name: "Agedashi tofu",
         desc: "Tofu (queso de soya) frito con caldo dashi (caldo de pescado y alga marina kombu).",
@@ -121,7 +121,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 220,
       },
       {
-        photo: "/assets/food/kushiague-queso.png",
+        photo: "/assets/food/kushiague-queso.webp",
         jp: "チーズ串揚げ",
         name: "Kushiague de queso",
         qty: "3 piezas",
@@ -129,7 +129,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 150,
       },
       {
-        photo: "/assets/food/edamame.png",
+        photo: "/assets/food/edamame.webp",
         jp: "枝豆",
         name: "Edamame",
         desc: "Soya fresca cocida al vapor con una pizca de sal.",
@@ -151,7 +151,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
     format: "cards",
     items: [
       {
-        photo: "/assets/food/shogayaki.png",
+        photo: "/assets/food/shogayaki.webp",
         jp: "豚のしょうが焼き",
         name: "Shogayaki",
         desc: "Carne de puerco y col con salsa de soya y jengibre.",
@@ -159,7 +159,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/ebi-fry.png",
+        photo: "/assets/food/ebi-fry.webp",
         jp: "エビフライ",
         name: "Ebi fry",
         desc: "Camarón empanizado.",
@@ -167,7 +167,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/hamburger-steak.png",
+        photo: "/assets/food/hamburger-steak.webp",
         jp: "ハンバーグ",
         name: "Hamburguesa",
         desc: "Jugosa carne molida de res a la plancha.",
@@ -175,7 +175,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/yakisakana.png",
+        photo: "/assets/food/yakisakana.webp",
         jp: "鮭の塩焼き",
         name: "Yakisakana",
         desc: "Salmón asado.",
@@ -183,7 +183,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/misodori.png",
+        photo: "/assets/food/misodori.webp",
         jp: "みそ鶏",
         name: "Misodori",
         desc: "Cortes de muslo de pollo en pasta miso.",
@@ -191,7 +191,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/tonkatsu.png",
+        photo: "/assets/food/tonkatsu.webp",
         jp: "トンカツ",
         name: "Tonkatsu",
         desc: "Lomo de puerco empanizado.",
@@ -199,7 +199,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/karaage.png",
+        photo: "/assets/food/karaage.webp",
         jp: "鶏のからあげ",
         name: "Karaague",
         desc: "Cortes de muslo de pollo envueltos en harina y fritos.",
@@ -207,7 +207,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/sakana-fry.png",
+        photo: "/assets/food/sakana-fry.webp",
         jp: "魚フライ",
         name: "Sakana fry",
         desc: "Filete de pescado empanizado.",
@@ -215,7 +215,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/tori-namban.png",
+        photo: "/assets/food/tori-namban.webp",
         jp: "鶏南蛮",
         name: "Tori namban",
         desc: "Cortes de muslo de pollo frito con verduras, marinados en un aderezo de vinagre.",
@@ -223,7 +223,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/sanma.png",
+        photo: "/assets/food/sanma.webp",
         jp: "さんまの塩焼き",
         name: "Sanma",
         desc: "Pescado asado con un poco de rayadura de nabo.",
@@ -232,7 +232,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/torikatsu.png",
+        photo: "/assets/food/torikatsu.webp",
         jp: "鶏カツ",
         name: "Torikatsu",
         desc: "Muslo de pollo empanizado.",
@@ -240,7 +240,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         tag: "一品",
       },
       {
-        photo: "/assets/food/butaoroshi-ponzu.png",
+        photo: "/assets/food/butaoroshi-ponzu.webp",
         jp: "豚おろしポン酢",
         name: "Butaoroshi ponzu",
         desc: "Carne de puerco frito envinagrado con soya, con rayadura de nabo y jengibre.",
@@ -263,7 +263,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
     format: "rows",
     items: [
       {
-        photo: "/assets/food/konohana-roll.png",
+        photo: "/assets/food/konohana-roll.webp",
         jp: "此の花巻き",
         name: "Konohana roll",
         qty: "10 piezas",
@@ -293,7 +293,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 110,
       },
       {
-        photo: "/assets/food/inari.png",
+        photo: "/assets/food/inari.webp",
         jp: "いなり",
         name: "Inari",
         qty: "3 piezas",
@@ -335,7 +335,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 250,
       },
       {
-        photo: "/assets/food/katsu-curry.png",
+        photo: "/assets/food/katsu-curry.webp",
         jp: "カツカレー",
         name: "Curry con tonkatsu",
         desc: "Curry con lomo de puerco empanizado.",
@@ -358,7 +358,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
     format: "rows",
     items: [
       {
-        photo: "/assets/food/mini-udon.png",
+        photo: "/assets/food/mini-udon.webp",
         jp: "うどん",
         name: "Udon sencillo",
         desc: "Pasta de harina en caldo dashi sencillo con alga marina wakame, cebollín y tenkasu (harina frita).",
@@ -373,7 +373,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         alt: { label: "media porción", price: 130 },
       },
       {
-        photo: "/assets/food/niku-udon.png",
+        photo: "/assets/food/niku-udon.webp",
         jp: "肉うどん",
         name: "Niku udon",
         desc: "Pasta de harina en caldo dashi con res.",
@@ -381,7 +381,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         alt: { label: "media porción", price: 140 },
       },
       {
-        photo: "/assets/food/yamakake-udon.png",
+        photo: "/assets/food/yamakake-udon.webp",
         jp: "山かけうどん",
         name: "Yamakake udon",
         desc: "Pasta de harina en caldo dashi con papa yuca.",
@@ -395,7 +395,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 340,
       },
       {
-        photo: "/assets/food/aguemochi-udon.png",
+        photo: "/assets/food/aguemochi-udon.webp",
         jp: "揚げもちうどん",
         name: "Ague mochi udon",
         desc: "Pasta de harina en caldo dashi con mochi (pasta de arroz) frito.",
@@ -403,21 +403,21 @@ export const MENU_DATA: Record<string, MenuSection> = {
         alt: { label: "media porción", price: 140 },
       },
       {
-        photo: "/assets/food/chawan-mushi.png",
+        photo: "/assets/food/chawan-mushi.webp",
         jp: "茶碗蒸し",
         name: "Chawan-mushi",
         desc: "Sopa de huevo tipo flan.",
         price: 140,
       },
       {
-        photo: "/assets/food/misoshiru.png",
+        photo: "/assets/food/misoshiru.webp",
         jp: "味噌汁",
         name: "Misoshiru",
         desc: "Sopa de miso (pasta de soya).",
         price: 60,
       },
       {
-        photo: "/assets/food/kids-plate.png",
+        photo: "/assets/food/kids-plate.webp",
         jp: "お子様セット",
         name: "Paquete infantil",
         desc: "Karaague, camarón empanizado, hamburguesa y papas a la francesa, con rollo de sushi (2 piezas) ú onigiri (2 piezas), udon chico, postre y jugo de naranja.",
@@ -433,7 +433,7 @@ export const MENU_DATA: Record<string, MenuSection> = {
     format: "cards",
     items: [
       {
-        photo: "/assets/food/gohan.png",
+        photo: "/assets/food/gohan.webp",
         jp: "ご飯",
         name: "Gohan",
         desc: "Arroz blanco al vapor.",
@@ -466,14 +466,14 @@ export const MENU_DATA: Record<string, MenuSection> = {
         price: 220,
       },
       {
-        photo: "/assets/food/katsu-don.png",
+        photo: "/assets/food/katsu-don.webp",
         jp: "カツ丼",
         name: "Katsu-don",
         desc: "Lomo de puerco empanizado bañado de huevo sobre una cama de arroz.",
         price: 250,
       },
       {
-        photo: "/assets/food/unadon.png",
+        photo: "/assets/food/unadon.webp",
         jp: "うな丼",
         name: "Unadon",
         desc: "Anguila en una salsa suavemente dulce sobre una cama de arroz blanco al vapor.",
@@ -497,37 +497,37 @@ export const MENU_DATA: Record<string, MenuSection> = {
     format: "cards",
     items: [
       {
-        photo: "/assets/food/pastel-chocolate.png",
+        photo: "/assets/food/pastel-chocolate.webp",
         jp: "チョコレートケーキ",
         name: "Pastel de chocolate",
         price: 80,
       },
       {
-        photo: "/assets/food/rollo-matcha.png",
+        photo: "/assets/food/rollo-matcha.webp",
         jp: "抹茶ロールケーキ",
         name: "Rollo de matcha con crema",
         price: 80,
       },
       {
-        photo: "/assets/food/pastel-queso.png",
+        photo: "/assets/food/pastel-queso.webp",
         jp: "チーズケーキ",
         name: "Pastel de queso",
         price: 80,
       },
       {
-        photo: "/assets/food/tarta-pera.png",
+        photo: "/assets/food/tarta-pera.webp",
         jp: "洋梨タルト",
         name: "Tarta de pera",
         price: 80,
       },
       {
-        photo: "/assets/food/gelatina-cafe.png",
+        photo: "/assets/food/gelatina-cafe.webp",
         jp: "コーヒーゼリー",
         name: "Gelatina de café con helado",
         price: 80,
       },
       {
-        photo: "/assets/food/mikan-jelly.png",
+        photo: "/assets/food/mikan-jelly.webp",
         jp: "みかんゼリー",
         name: "Gelatina de agar agar con naranja",
         price: 80,

@@ -26,7 +26,7 @@ export function SiteShell() {
   return (
     <>
       <Header onReserve={openModal} />
-      <Hero onReserve={openModal} onViewMenu={scrollToMenu} />
+      <Hero onViewMenu={scrollToMenu} />
       <About />
       <DelDia />
       <MenuBrowser />

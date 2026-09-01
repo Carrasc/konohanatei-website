@@ -1,7 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Button } from "./Primitives";
+import { useCallback, useEffect, useState } from "react";
+import { Button, Icon } from "./Primitives";
+
+/** Same number the header, footer and Visit section dial. */
+const PHONE_HREF = "tel:5556035404";
+const PHONE_DISPLAY = "55 5603 5404";
 
 export function ReservationModal({
   open,
@@ -10,11 +14,17 @@ export function ReservationModal({
   open: boolean;
   onClose: () => void;
 }) {
-  const [sent, setSent] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (!open) setSent(false);
+    if (!open) setCopied(false);
   }, [open]);
+
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(t);
+  }, [copied]);
 
   useEffect(() => {
     if (!open) return;
@@ -25,10 +35,40 @@ export function ReservationModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  const copyPhone = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(PHONE_DISPLAY);
+      setCopied(true);
+      return;
+    } catch {
+      // Clipboard API is unavailable outside secure contexts — fall back.
+    }
+    const ta = document.createElement("textarea");
+    ta.value = PHONE_DISPLAY;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+      setCopied(true);
+    } catch {
+      // Nothing else to try; the number stays visible and selectable.
+    }
+    document.body.removeChild(ta);
+  }, []);
+
   if (!open) return null;
 
   return (
-    <div className="kh-modal" onClick={onClose} role="dialog" aria-modal="true">
+    <div
+      className="kh-modal"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="kh-resv-title"
+    >
       <div className="kh-modal__panel" onClick={(e) => e.stopPropagation()}>
         <button
           className="kh-modal__close"
@@ -37,72 +77,56 @@ export function ReservationModal({
         >
           ×
         </button>
-        {!sent ? (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
+
+        <div className="kh-modal__head">
+          <img src="/assets/hanko.svg" alt="" />
+          <div>
+            <div className="jp">ご予約</div>
+            <h3 id="kh-resv-title">Reservar una mesa</h3>
+            <p>Llámanos para reservar — te contestamos en el restaurante.</p>
+          </div>
+        </div>
+
+        <div className="kh-resv__phone-card">
+          <span className="kh-resv__label">Teléfono · お電話</span>
+          <a className="kh-resv__number" href={PHONE_HREF}>
+            {PHONE_DISPLAY}
+          </a>
+          <button
+            type="button"
+            className={`kh-resv__copy${copied ? " kh-resv__copy--done" : ""}`}
+            onClick={copyPhone}
+          >
+            <Icon name={copied ? "check" : "copy"} size={14} />
+            {copied ? "Copiado" : "Copiar"}
+          </button>
+        </div>
+
+        <div className="kh-resv__note">
+          <p>
+            Solo tomamos reservas para mesas de <strong>más de 5 personas</strong>.
+            Para grupos así, por favor llámanos con un día de anticipación.
+          </p>
+          <p>
+            Para mesas más chicas no hace falta reservar — pasa cuando gustes y
+            con gusto te acomodamos.
+          </p>
+        </div>
+
+        <div className="kh-resv__foot">
+          <span className="kh-resv__hours">
+            Mar–Dom · 1:00 – 9:00 p.m.
+            <small>Última orden 7:30 p.m. · Lunes cerrado</small>
+          </span>
+          <Button
+            variant="primary"
+            onClick={() => {
+              window.location.href = PHONE_HREF;
             }}
           >
-            <div className="kh-modal__head">
-              <img src="/assets/hanko.svg" alt="" />
-              <div>
-                <div className="jp">ご予約</div>
-                <h3>Reservar una mesa</h3>
-                <p>Le llamaremos para confirmar en las próximas horas.</p>
-              </div>
-            </div>
-            <div className="kh-modal__grid">
-              <label className="kh-field">
-                <span>Nombre</span>
-                <input required defaultValue="Mariko S." />
-              </label>
-              <label className="kh-field">
-                <span>Teléfono</span>
-                <input required type="tel" placeholder="55 ____ ____" />
-              </label>
-              <label className="kh-field">
-                <span>Personas</span>
-                <select defaultValue="2 personas">
-                  <option>1 persona</option>
-                  <option>2 personas</option>
-                  <option>3 personas</option>
-                  <option>4 personas</option>
-                  <option>5 personas</option>
-                  <option>6+ personas</option>
-                </select>
-              </label>
-              <label className="kh-field">
-                <span>Fecha y hora</span>
-                <input placeholder="mié · 23 abr · 7:00 p.m." />
-              </label>
-              <label className="kh-field kh-field--wide">
-                <span>Notas</span>
-                <input placeholder="Alergias, cumpleaños, niños, silla alta…" />
-              </label>
-            </div>
-            <div className="kh-modal__foot">
-              <Button type="button" variant="subtle" onClick={onClose}>
-                Cancelar
-              </Button>
-              <Button type="submit" variant="primary">
-                Enviar solicitud
-              </Button>
-            </div>
-          </form>
-        ) : (
-          <div className="kh-modal__thanks">
-            <img src="/assets/hanko.svg" alt="" />
-            <h3>ありがとうございます</h3>
-            <p>
-              Recibimos tu solicitud. Te llamaremos en las próximas horas para
-              confirmar la mesa.
-            </p>
-            <Button variant="primary" onClick={onClose}>
-              Cerrar
-            </Button>
-          </div>
-        )}
+            Llamar ahora
+          </Button>
+        </div>
       </div>
     </div>
   );

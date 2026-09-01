@@ -10,28 +10,28 @@ type Filling = { name: string; img: string };
 
 const SANDOS: Meal[] = [
   {
-    img: "/assets/food/breakfast/tamago-sando.jpg",
+    img: "/assets/food/breakfast/tamago-sando.webp",
     jp: "卵サンド",
     name: "Tamago sando",
     desc: "Huevo duro y mayonesa japonesa, acompañado de ensalada fresca.",
     price: 109,
   },
   {
-    img: "/assets/food/breakfast/torikatsu-sando.jpg",
+    img: "/assets/food/breakfast/torikatsu-sando.webp",
     jp: "鶏かつサンド",
     name: "Torikatsu sando",
     desc: "Filete de pollo empanizado con verdura fresca.",
     price: 119,
   },
   {
-    img: "/assets/food/breakfast/katsu-sando.jpg",
+    img: "/assets/food/breakfast/katsu-sando.webp",
     jp: "かつサンド",
     name: "Katsu sando",
     desc: "Filete de puerco empanizado con verdura fresca.",
     price: 119,
   },
   {
-    img: "/assets/food/breakfast/tsuna-sando.jpg",
+    img: "/assets/food/breakfast/tsuna-sando.webp",
     jp: "ツナサンド",
     name: "Tsuna sando",
     desc: "Atún con mayonesa y verdura fresca.",
@@ -41,21 +41,21 @@ const SANDOS: Meal[] = [
 
 const TEISHOKU: Meal[] = [
   {
-    img: "/assets/food/breakfast/yakisakana-teishoku.jpg",
+    img: "/assets/food/breakfast/yakisakana-teishoku.webp",
     jp: "焼き魚定食",
     name: "Yakisakana teishoku",
     desc: "Salmón asado, arroz al vapor, sopa de miso y un kobachi.",
     price: 199,
   },
   {
-    img: "/assets/food/breakfast/tonkatsu-teishoku.jpg",
+    img: "/assets/food/breakfast/tonkatsu-teishoku.webp",
     jp: "とんかつ定食",
     name: "Tonkatsu teishoku",
     desc: "Lomo de puerco empanizado, arroz, sopa de miso y acompañamiento.",
     price: 209,
   },
   {
-    img: "/assets/food/breakfast/torikatsu-teishoku.jpg",
+    img: "/assets/food/breakfast/torikatsu-teishoku.webp",
     jp: "鶏かつ定食",
     name: "Torikatsu teishoku",
     desc: "Muslo de pollo empanizado, arroz, sopa de miso y acompañamiento.",
@@ -64,9 +64,9 @@ const TEISHOKU: Meal[] = [
 ];
 
 const ONIGIRI_FILLINGS: Filling[] = [
-  { name: "Salmón", img: "/assets/food/breakfast/onigiri-salmon.jpg" },
-  { name: "Umeboshi", img: "/assets/food/breakfast/onigiri-umeboshi.jpg" },
-  { name: "Queso Filadelfia", img: "/assets/food/breakfast/onigiri-queso.jpg" },
+  { name: "Salmón", img: "/assets/food/breakfast/onigiri-salmon.webp" },
+  { name: "Umeboshi", img: "/assets/food/breakfast/onigiri-umeboshi.webp" },
+  { name: "Queso Filadelfia", img: "/assets/food/breakfast/onigiri-queso.webp" },
 ];
 
 function MealCard({ img, jp, name, desc, price, featured }: Meal) {
@@ -97,7 +97,6 @@ export function Breakfast() {
         <h2 className="kh-breakfast__title">
           <em>También</em> tenemos desayunos
         </h2>
-        <div className="kh-breakfast__jp">ふわっふわ</div>
         <div className="kh-breakfast__hours">
           <span className="kh-breakfast__hours-kanji">営業</span>
           <span className="kh-breakfast__hours-time">9:00 – 12:30</span>
@@ -152,7 +151,7 @@ export function Breakfast() {
         <div className="kh-onigiri">
           <div className="kh-onigiri__photo">
             <img
-              src="/assets/food/breakfast/onigiri.jpg"
+              src="/assets/food/breakfast/onigiri.webp"
               alt=""
               loading="lazy"
             />

@@ -56,7 +56,10 @@ type IconName =
   | "mail"
   | "phone"
   | "arrow-right"
-  | "map-pin";
+  | "map-pin"
+  | "copy"
+  | "check"
+  | "chevron-down";
 
 export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
   const paths: Record<IconName, ReactNode> = {
@@ -91,6 +94,14 @@ export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {
         <circle cx="12" cy="10" r="3" />
       </>
     ),
+    copy: (
+      <>
+        <rect x="9" y="9" width="12" height="12" rx="2" ry="2" />
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+      </>
+    ),
+    check: <polyline points="20 6 9 17 4 12" />,
+    "chevron-down": <polyline points="6 9 12 15 18 9" />,
   };
   return (
     <svg

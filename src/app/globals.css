@@ -12,8 +12,11 @@
 /* Noto Serif JP covers kanji + kana + Latin in a warm Mincho style that
    matches the menu's original Japanese headings. Shippori Mincho is a
    beautiful alternate Japanese serif for bigger display moments. Lora is
-   the Latin serif companion. Nunito Sans is the quiet body face. */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+   the Latin serif companion. Nunito Sans is the quiet body face.
+
+   These are requested from <head> in app/layout.tsx, not with @import here:
+   the bundler strips a remote @import from the built CSS, so none of the
+   four families were reaching the browser at all. */
 
 :root {
   /* ---------- Palette: neutrals -------------------------------------------
@@ -279,13 +282,8 @@ button { font: inherit; }
 }
 
 body.kh-tone-paper       { background: #F4EADB; }
-body.kh-tone-washi       { background: #FBF6EC; }
-body.kh-tone-warm        { background: #EADDC3; }
 
 /* ---------- Container & utilities -------------------------------- */
-.kh-container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
-.kh-container--wide { max-width: 1400px; }
-@media (max-width: 720px) { .kh-container { padding: 0 20px; } }
 
 .kh-eyebrow {
   font-family: var(--kh-font-body);
@@ -981,13 +979,21 @@ body.kh-tone-warm        { background: #EADDC3; }
 }
 .kh-menu__head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; gap: 32px; }
 .kh-menu__head .kh-sec { margin-bottom: 0; }
-.kh-menu__head-right { max-width: 400px; text-align: right; }
-.kh-menu__head-right p { font-family: var(--kh-font-body); font-weight: 300; font-size: 14px; line-height: 1.65; color: var(--kh-fg-muted); font-style: italic; margin: 0; }
 
-.kh-menu__tabs {
-  display: flex; gap: 4px; flex-wrap: wrap;
+/* Sticky strip: stays under the site header so the reader can jump between
+   courses without scrolling back up a very long list. */
+.kh-menu__tabbar {
+  position: sticky;
+  top: var(--kh-header-height);
+  z-index: 30;
+  background: var(--kh-paper);
   border-bottom: 1px solid var(--kh-line);
-  margin-top: 28px; padding-bottom: 0;
+  margin-top: 28px;
+}
+.kh-menu__tabs {
+  position: relative;
+  display: flex; gap: 4px; flex-wrap: wrap;
+  padding-bottom: 0;
 }
 .kh-menu__tab {
   background: transparent; border: 0; padding: 14px 20px 16px;
@@ -1006,6 +1012,72 @@ body.kh-tone-warm        { background: #EADDC3; }
 .kh-menu__tab-jp { font-family: var(--kh-font-jp); font-weight: 500; font-size: 15px; letter-spacing: 0.06em; }
 .kh-menu__tab-latin { font-family: var(--kh-font-display); font-style: italic; font-size: 13px; color: var(--kh-fg-muted); }
 .kh-menu__tab--on .kh-menu__tab-latin { color: var(--kh-shoyu); }
+
+/* ---------- Section picker (narrow screens) ---------------------- */
+.kh-menu__picker { display: none; position: relative; }
+.kh-menu__picker-trigger {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: transparent; border: 0;
+  padding: 11px 0 13px;
+  text-align: left; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.kh-menu__picker-current .jp {
+  display: block;
+  font-family: var(--kh-font-jp); font-weight: 500; font-size: 15px;
+  letter-spacing: 0.06em; color: var(--kh-fg-muted);
+}
+.kh-menu__picker-current .lt {
+  display: block; margin-top: 1px;
+  font-family: var(--kh-font-display); font-weight: 600; font-size: 21px;
+  color: var(--kh-sumi); line-height: 1.15;
+}
+.kh-menu__picker-meta {
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.kh-menu__picker-meta .count {
+  font-family: var(--kh-font-body); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; color: var(--kh-ink-mute);
+  border: 1px solid var(--kh-line); border-radius: var(--kh-radius-pill);
+  padding: 3px 10px; white-space: nowrap;
+}
+.kh-menu__picker-meta .chev {
+  display: flex; color: var(--kh-shoyu);
+  transition: transform var(--kh-dur) var(--kh-ease);
+}
+.kh-menu__picker-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+.kh-menu__picker-list {
+  position: absolute; left: 0; right: 0; top: 100%;
+  z-index: 5;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  padding: 6px;
+  background: var(--kh-washi);
+  border: 1px solid var(--kh-line);
+  border-top: 0;
+  border-radius: 0 0 5px 5px;
+  box-shadow: var(--kh-shadow-lg);
+  animation: kh-fadein 160ms var(--kh-ease-out);
+}
+.kh-menu__picker-opt {
+  background: transparent; border: 0; border-radius: 3px;
+  padding: 11px 12px 12px;
+  text-align: left; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.kh-menu__picker-opt .jp {
+  display: block;
+  font-family: var(--kh-font-jp); font-weight: 500; font-size: 13px;
+  letter-spacing: 0.06em; color: var(--kh-ink-mute);
+}
+.kh-menu__picker-opt .lt {
+  display: block; margin-top: 2px;
+  font-family: var(--kh-font-display); font-weight: 600; font-size: 16px;
+  color: var(--kh-sumi); line-height: 1.2;
+}
+.kh-menu__picker-opt.is-on { background: var(--kh-paper-warm); }
+.kh-menu__picker-opt.is-on .lt { color: var(--kh-shoyu); }
 
 .kh-menu__panel { padding-top: 40px; animation: kh-fadein 300ms var(--kh-ease-out); }
 @keyframes kh-fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -1107,13 +1179,12 @@ body.kh-tone-warm        { background: #EADDC3; }
 }
 .kh-row__thumb--empty::before {
   content: ''; position: absolute; inset: 0;
-  background-image: url('/assets/seigaiha.svg');
   background-size: 60px 30px;
   opacity: 0.1;
 }
 .kh-row__thumb--empty img {
   position: relative;
-  width: 25px; height: 25px;
+  width: 28px; height: 28px;
   opacity: 0.3;
 }
 .kh-row__main { flex: 1; min-width: 0; }
@@ -1168,8 +1239,7 @@ body.kh-tone-warm        { background: #EADDC3; }
   .kh-menu__cards { grid-template-columns: 1fr 1fr; }
   .kh-menu__rows { grid-template-columns: 1fr; gap: 0; }
   .kh-menu__head { flex-direction: column; align-items: flex-start; }
-  .kh-menu__head-right { text-align: left; }
-}
+  }
 @media (max-width: 600px) {
   .kh-menu__cards { grid-template-columns: 1fr; }
   .kh-teishoku-note { grid-template-columns: 1fr; text-align: left; }
@@ -1483,108 +1553,73 @@ body.kh-tone-warm        { background: #EADDC3; }
 .kh-modal__head .jp { font-family: var(--kh-font-jp); font-weight: 500; font-size: 20px; letter-spacing: 0.08em; color: var(--kh-fg); }
 .kh-modal__head h3 { font-family: var(--kh-font-display); font-weight: 600; font-size: 24px; color: var(--kh-sumi); margin: 2px 0 0; line-height: 1.2; }
 .kh-modal__head p { font-family: var(--kh-font-body); font-size: 14px; color: var(--kh-fg-muted); margin: 6px 0 0; font-style: italic; }
-.kh-modal__grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 14px 16px; margin: 24px 0 20px;
+/* ---------- Reservation modal (informational) -------------------- */
+.kh-resv__phone-card {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 24px 0 18px;
+  padding: 18px 20px;
+  background: var(--kh-paper);
+  border: 1px solid var(--kh-line);
+  border-radius: 4px;
 }
-.kh-field { display: flex; flex-direction: column; gap: 6px; }
-.kh-field--wide { grid-column: 1 / -1; }
-.kh-field span {
+.kh-resv__label {
+  flex-basis: 100%;
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--kh-ink-mute);
-  font-weight: 600;
+  font-weight: 600; color: var(--kh-ink-mute);
 }
-.kh-field input, .kh-field select {
-  font-family: var(--kh-font-body); font-size: 15px; color: var(--kh-fg);
-  background: var(--kh-paper); border: 1px solid var(--kh-line);
-  border-radius: 3px; padding: 11px 13px; outline: none;
-  transition: border-color var(--kh-dur) var(--kh-ease), box-shadow var(--kh-dur) var(--kh-ease);
+.kh-resv__number {
+  font-family: var(--kh-font-display); font-weight: 600;
+  font-size: 30px; letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--kh-shoyu);
+  text-decoration: none;
+  margin-right: auto;
+  transition: color var(--kh-dur) var(--kh-ease);
 }
-.kh-field input:focus, .kh-field select:focus {
-  border-color: var(--kh-shoyu);
-  box-shadow: 0 0 0 3px rgba(107, 58, 30, 0.12);
-}
-.kh-modal__foot {
-  display: flex; gap: 10px; justify-content: flex-end;
-  padding-top: 12px; border-top: 1px dotted var(--kh-line);
-}
-.kh-modal__thanks {
-  text-align: center; padding: 24px 0 8px;
-  display: flex; flex-direction: column; align-items: center; gap: 14px;
-}
-.kh-modal__thanks img { width: 64px; height: 64px; }
-.kh-modal__thanks h3 { font-family: var(--kh-font-jp); font-weight: 500; font-size: 28px; color: var(--kh-sumi); margin: 0; letter-spacing: 0.08em; }
-.kh-modal__thanks p { font-family: var(--kh-font-body); font-size: 15px; line-height: 1.65; color: var(--kh-fg-muted); margin: 0; max-width: 360px; text-wrap: pretty; }
-
-/* =================================================================
-   Tweaks panel
-   ================================================================= */
-.kh-tweaks {
-  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+.kh-resv__number:hover { color: var(--kh-shoyu-deep); }
+.kh-resv__copy {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--kh-font-body); font-size: 13px; font-weight: 600;
+  color: var(--kh-fg-muted);
   background: var(--kh-washi);
   border: 1px solid var(--kh-line);
-  border-radius: 6px;
-  padding: 18px 20px 20px;
-  width: 280px;
-  box-shadow: var(--kh-shadow-md);
-  font-family: var(--kh-font-body);
+  border-radius: var(--kh-radius-pill);
+  padding: 7px 14px; cursor: pointer;
+  transition: color var(--kh-dur) var(--kh-ease),
+              border-color var(--kh-dur) var(--kh-ease);
 }
-.kh-tweaks h4 {
-  margin: 0 0 12px;
-  font-family: var(--kh-font-display); font-weight: 600; font-size: 15px;
-  color: var(--kh-sumi);
+.kh-resv__copy:hover { color: var(--kh-shoyu); border-color: var(--kh-shoyu-light); }
+.kh-resv__copy--done { color: var(--kh-shoyu); border-color: var(--kh-shoyu-light); }
+
+.kh-resv__note {
+  border-left: 2px solid var(--kh-shoyu-light);
+  padding: 2px 0 2px 16px;
+  margin-bottom: 22px;
+}
+.kh-resv__note p {
+  font-family: var(--kh-font-body); font-size: 14.5px; line-height: 1.6;
+  color: var(--kh-fg-muted); margin: 0;
+  text-wrap: pretty;
+}
+.kh-resv__note p + p { margin-top: 10px; }
+.kh-resv__note strong { color: var(--kh-fg); font-weight: 600; }
+
+.kh-resv__foot {
   display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px;
+  padding-top: 16px; border-top: 1px dotted var(--kh-line);
 }
-.kh-tweaks h4 small { font-family: var(--kh-font-jp); font-weight: 500; font-size: 11px; color: var(--kh-fg-muted); letter-spacing: 0.08em; }
-.kh-tweaks__row { display: flex; flex-direction: column; gap: 6px; padding: 8px 0; border-top: 1px dotted var(--kh-line); }
-.kh-tweaks__row:first-of-type { border-top: 0; padding-top: 0; }
-.kh-tweaks__row > label { font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--kh-ink-mute); font-weight: 600; }
-.kh-tweaks__opts { display: flex; gap: 4px; flex-wrap: wrap; }
-.kh-tweaks__opt {
-  padding: 5px 10px; border-radius: 3px;
-  background: var(--kh-paper); border: 1px solid var(--kh-line);
-  font-size: 11.5px; cursor: pointer;
-  color: var(--kh-sumi-soft);
-  transition: all var(--kh-dur) var(--kh-ease);
+.kh-resv__hours {
+  font-family: var(--kh-font-display); font-weight: 500; font-size: 15px;
+  color: var(--kh-fg);
 }
-.kh-tweaks__opt:hover { border-color: var(--kh-shoyu-light); }
-.kh-tweaks__opt.is-on { background: var(--kh-shoyu); color: var(--kh-paper); border-color: var(--kh-shoyu); }
-.kh-tweaks__slider { width: 100%; accent-color: var(--kh-shoyu); }
-
-/* =================================================================
-   Hero layout variants
-   ================================================================= */
-/* Variant B — centered stacked */
-body.kh-hero-centered .kh-hero__inner {
-  grid-template-columns: 1fr;
-  text-align: center;
-  gap: 48px;
-  max-width: 900px;
-  margin: 0 auto;
+.kh-resv__hours small {
+  display: block; margin-top: 2px;
+  font-family: var(--kh-font-body); font-weight: 400; font-size: 12.5px;
+  color: var(--kh-ink-mute);
 }
-body.kh-hero-centered .kh-hero__lead { margin-inline: auto; }
-body.kh-hero-centered .kh-hero__meta { justify-content: center; }
-body.kh-hero-centered .kh-hero__cta { justify-content: center; }
-body.kh-hero-centered .kh-hero__figure { max-width: 460px; margin-inline: auto; }
 
-/* Variant C — photo-left */
-body.kh-hero-photo-left .kh-hero__inner { direction: rtl; }
-body.kh-hero-photo-left .kh-hero__inner > * { direction: ltr; }
-body.kh-hero-photo-left .kh-hero__caption { right: auto; left: -20px; transform: rotate(-1.2deg); }
-body.kh-hero-photo-left .kh-hero__seal { left: auto; right: -28px; }
-
-/* =================================================================
-   Lacquer intensity variants
-   ================================================================= */
-body.kh-accent-low .kh-dish__tag--accent { background: var(--kh-sumi); }
-body.kh-accent-low .kh-cta-band .kh-btn--accent { background: var(--kh-paper); color: var(--kh-sumi); }
-body.kh-accent-low .kh-visit__map-pin-dot { background: var(--kh-shoyu); box-shadow: 0 0 0 2px var(--kh-shoyu-deep), 0 4px 10px rgba(107, 58, 30, 0.3); animation: none; }
-body.kh-accent-low .kh-deldia-card__tag { color: var(--kh-shoyu); }
-
-body.kh-accent-high .kh-hero__latin em { color: var(--kh-lacquer); }
-body.kh-accent-high .kh-sec__latin { color: var(--kh-lacquer); }
-body.kh-accent-high .kh-btn--primary { background: var(--kh-lacquer); }
-body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep); }
 
 /* =================================================================
    Responsive hero tweaks
@@ -1638,23 +1673,10 @@ body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep);
   .kh-deldia-card__name { font-size: 16px; }
 
   .kh-menu { padding: 56px 20px 56px; }
-  .kh-menu__tabs {
-    gap: 2px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    scrollbar-width: none;
-    /* Lock scroll axis so vertical taps aren't hijacked as horizontal
-       pans — essential for tap reliability on iOS. */
-    touch-action: pan-x;
-  }
-  .kh-menu__tabs::-webkit-scrollbar { display: none; }
-  .kh-menu__tab {
-    flex-shrink: 0;
-    padding: 10px 14px 12px;
-    min-width: 0;
-  }
-  .kh-menu__tab-jp { font-size: 14px; }
-  .kh-menu__tab-latin { font-size: 12px; }
+  /* Eight tabs can't sit legibly across a phone, so swap the strip for a
+     picker that opens the full list. */
+  .kh-menu__tabs { display: none; }
+  .kh-menu__picker { display: block; }
   .kh-menu__panel { padding-top: 24px; }
   .kh-menu__intro p { font-size: 15.5px; }
   .kh-teishoku-note { padding: 16px 18px; gap: 14px; }
@@ -1679,8 +1701,10 @@ body.kh-accent-high .kh-btn--primary:hover { background: var(--kh-lacquer-deep);
 
   .kh-modal { padding: 12px; }
   .kh-modal__panel { padding: 24px 20px 20px; }
-  .kh-modal__grid { grid-template-columns: 1fr; }
   .kh-modal__head h3 { font-size: 20px; }
+  .kh-resv__number { font-size: 26px; }
+  .kh-resv__foot { flex-direction: column; align-items: stretch; }
+  .kh-resv__foot .kh-btn { justify-content: center; }
 }
 
 @media (max-width: 640px) {

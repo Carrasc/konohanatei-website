@@ -4,22 +4,21 @@ import { Button } from "./Primitives";
 type RailItem = { img: string; jp: string; lt: string };
 
 const RAIL_ITEMS: readonly RailItem[] = [
-  { img: "/assets/food/tonkatsu.png", jp: "トンカツ", lt: "Tonkatsu" },
-  { img: "/assets/food/katsu-curry.png", jp: "カツカレー", lt: "Katsu curry" },
-  { img: "/assets/food/konohana-roll.png", jp: "此の花巻き", lt: "Konohana roll" },
-  { img: "/assets/food/niku-udon.png", jp: "肉うどん", lt: "Niku udon" },
-  { img: "/assets/food/karaage.png", jp: "鶏のからあげ", lt: "Karaague" },
-  { img: "/assets/food/agedashi-tofu.png", jp: "揚げ出し豆腐", lt: "Agedashi tofu" },
-  { img: "/assets/food/chawan-mushi.png", jp: "茶碗蒸し", lt: "Chawan mushi" },
-  { img: "/assets/food/yakisakana.png", jp: "鮭の塩焼き", lt: "Yakisakana" },
+  { img: "/assets/food/tonkatsu.webp", jp: "トンカツ", lt: "Tonkatsu" },
+  { img: "/assets/food/katsu-curry.webp", jp: "カツカレー", lt: "Katsu curry" },
+  { img: "/assets/food/konohana-roll.webp", jp: "此の花巻き", lt: "Konohana roll" },
+  { img: "/assets/food/niku-udon.webp", jp: "肉うどん", lt: "Niku udon" },
+  { img: "/assets/food/karaage.webp", jp: "鶏のからあげ", lt: "Karaague" },
+  { img: "/assets/food/agedashi-tofu.webp", jp: "揚げ出し豆腐", lt: "Agedashi tofu" },
+  { img: "/assets/food/chawan-mushi.webp", jp: "茶碗蒸し", lt: "Chawan mushi" },
+  { img: "/assets/food/yakisakana.webp", jp: "鮭の塩焼き", lt: "Yakisakana" },
 ] as const;
 
 type HeroProps = {
-  onReserve: () => void;
   onViewMenu: () => void;
 };
 
-export function Hero({ onReserve, onViewMenu }: HeroProps) {
+export function Hero({ onViewMenu }: HeroProps) {
   return (
     <section className="kh-hero" id="top">
       <div className="kh-hero__inner">
@@ -59,7 +58,7 @@ export function Hero({ onReserve, onViewMenu }: HeroProps) {
           />
           <div className="kh-hero__photo">
             <img
-              src="/assets/food/unadon.png"
+              src="/assets/food/unadon.webp"
               alt="Unadon — anguila sobre arroz al vapor"
               loading="eager"
               fetchPriority="high"

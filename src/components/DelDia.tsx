@@ -10,7 +10,7 @@ type DelDiaItem = {
 const ITEMS: DelDiaItem[] = [
   {
     tag: "一番人気 · N.º 1",
-    img: "/assets/food/gyoza.png",
+    img: "/assets/food/gyoza.webp",
     jp: "ギョウザ",
     name: "Gyoza",
     desc: "Ocho empanaditas asadas muy suaves, rellenas de carne molida de res.",
@@ -18,7 +18,7 @@ const ITEMS: DelDiaItem[] = [
   },
   {
     tag: "二番人気 · N.º 2",
-    img: "/assets/food/katsu-curry.png",
+    img: "/assets/food/katsu-curry.webp",
     jp: "カツカレー",
     name: "Curry con tonkatsu",
     desc: "Curry de la casa con lomo de puerco empanizado.",
@@ -26,7 +26,7 @@ const ITEMS: DelDiaItem[] = [
   },
   {
     tag: "三番人気 · N.º 3",
-    img: "/assets/food/yakisakana.png",
+    img: "/assets/food/yakisakana.webp",
     jp: "鮭の塩焼き",
     name: "Yakisakana",
     desc: "Salmón asado con un toque de sal.",

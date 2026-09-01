@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { SectionHeader } from "./Primitives";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Icon, SectionHeader } from "./Primitives";
 import { MENU_DATA, MENU_TABS, type MenuItem } from "@/data/menu";
 
 function DishCard({ photo, jp, name, desc, price, alt, qty, note, tag }: MenuItem) {
@@ -93,10 +93,66 @@ function MenuRow({
   );
 }
 
+const smoothly = (): ScrollBehavior =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
+
 export function MenuBrowser() {
   const [tab, setTab] = useState<string>(MENU_TABS[0][0]);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
   const data = MENU_DATA[tab];
   const rowsHavePhotos = data.items.some((i) => i.photo);
+  const activeIndex = MENU_TABS.findIndex(([id]) => id === tab);
+  const [, activeJp, activeLatin] = MENU_TABS[activeIndex];
+
+  // Dismiss the section picker on an outside tap or Escape.
+  useEffect(() => {
+    if (!pickerOpen) return;
+    const onDown = (e: Event) => {
+      if (!pickerRef.current?.contains(e.target as Node)) setPickerOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPickerOpen(false);
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [pickerOpen]);
+
+  const selectTab = useCallback((id: string) => {
+    setTab(id);
+    setPickerOpen(false);
+    const bar = barRef.current;
+    const panel = panelRef.current;
+    if (!bar || !panel) return;
+    // Sections differ a lot in height, so keeping the old scroll offset can
+    // drop you into the middle — or past the end — of the new list. If the
+    // previous list had already scrolled under the sticky bar, bring the new
+    // one back to its first item.
+    const headerH =
+      parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--kh-header-height",
+        ),
+      ) || 0;
+    const stuckBottom = headerH + bar.offsetHeight;
+    const panelTop = panel.getBoundingClientRect().top;
+    if (panelTop >= stuckBottom) return;
+    window.scrollTo({
+      top: window.scrollY + panelTop - stuckBottom,
+      behavior: smoothly(),
+    });
+  }, []);
+
   return (
     <section className="kh-menu" id="menu">
       <div className="kh-menu__head">
@@ -106,22 +162,77 @@ export function MenuBrowser() {
           latin="Menú"
         />
       </div>
-      <div className="kh-menu__tabs" role="tablist">
-        {MENU_TABS.map(([id, jp, latin]) => (
+      <div ref={barRef} className="kh-menu__tabbar">
+        <div className="kh-menu__tabs" role="tablist">
+          {MENU_TABS.map(([id, jp, latin]) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              id={`kh-tab-${id}`}
+              aria-selected={tab === id}
+              aria-controls="kh-menu-panel"
+              className={`kh-menu__tab${tab === id ? " kh-menu__tab--on" : ""}`}
+              onClick={() => selectTab(id)}
+            >
+              <span className="kh-menu__tab-jp">{jp}</span>
+              <span className="kh-menu__tab-latin">{latin}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Narrow screens: a picker that opens the whole list at once, rather
+            than a strip of small tabs that scrolls off the right edge. */}
+        <div className="kh-menu__picker" ref={pickerRef}>
           <button
-            key={id}
             type="button"
-            role="tab"
-            aria-selected={tab === id}
-            className={`kh-menu__tab${tab === id ? " kh-menu__tab--on" : ""}`}
-            onClick={() => setTab(id)}
+            className="kh-menu__picker-trigger"
+            aria-expanded={pickerOpen}
+            aria-controls="kh-menu-sections"
+            onClick={() => setPickerOpen((o) => !o)}
           >
-            <span className="kh-menu__tab-jp">{jp}</span>
-            <span className="kh-menu__tab-latin">{latin}</span>
+            <span className="kh-menu__picker-current">
+              <span className="jp">{activeJp}</span>
+              <span className="lt">{activeLatin}</span>
+            </span>
+            <span className="kh-menu__picker-meta">
+              <span className="count">
+                {activeIndex + 1} / {MENU_TABS.length}
+              </span>
+              <span className="chev">
+                <Icon name="chevron-down" size={18} />
+              </span>
+            </span>
           </button>
-        ))}
+          {pickerOpen && (
+            <div className="kh-menu__picker-list" id="kh-menu-sections">
+              {MENU_TABS.map(([id, jp, latin]) => (
+                <button
+                  key={id}
+                  type="button"
+                  aria-current={tab === id}
+                  aria-controls="kh-menu-panel"
+                  className={`kh-menu__picker-opt${
+                    tab === id ? " is-on" : ""
+                  }`}
+                  onClick={() => selectTab(id)}
+                >
+                  <span className="jp">{jp}</span>
+                  <span className="lt">{latin}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      <div className="kh-menu__panel" key={tab}>
+      <div
+        className="kh-menu__panel"
+        id="kh-menu-panel"
+        role="tabpanel"
+        aria-labelledby={`kh-tab-${tab}`}
+        key={tab}
+        ref={panelRef}
+      >
         <div className="kh-menu__intro">
           <p>{data.intro}</p>
         </div>
